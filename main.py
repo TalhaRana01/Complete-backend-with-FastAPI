@@ -204,6 +204,20 @@ async def all_products():
 @app.get("/products/{product_id}")
 async def get_single_product(product_id):
   for product in PRODUCTS:
-    return product
+    if product['product_id'] == product_id:
+      return product
+
+# Create product  
+@app.post("/products/")
+async def create_product(new_product: dict):
+  PRODUCTS.append(new_product)
+  return {"response" : "Product created ", "new_product": new_product}
+
+
+@app.put("/products/{product_id}")
+async def update_product(product_id, update_product: dict):
+  return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+  
+  
   
   
