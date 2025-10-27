@@ -235,7 +235,7 @@ async def partial_update_product(product_id, update_product: dict):
 async def delete_product(product_id,):
   for index, product in enumerate(PRODUCTS):
     if product['product_id'] == product_id:
-      PRODUCTS[index] = delete_product
+      PRODUCTS.pop(index)
       return { "message" : " Product deleted", "deleted_product": delete_product}
   
   
