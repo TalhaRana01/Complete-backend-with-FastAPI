@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Path
+from fastapi import FastAPI
+from enum import Enum
 from pydantic import BaseModel
 
 
@@ -99,9 +100,47 @@ app = FastAPI()
 ## Parameter with Type
 ### ------------------------------------------------------------------------------------------------------
 
+
+
  
-@app.get("/product/{product_id}")
-def get_single_product(product_id: int,  ):
-  return {"response" : "Single Product ID", "product_id" : product_id }
+# @app.get("/product/{product_id}")
+# def get_single_product(product_id: int,  ):
+#   return {"response" : "Single Product ID", "product_id" : product_id }
 
 
+### ------------------------------------------------------------------------------------------------------
+## Predefined Value
+### ------------------------------------------------------------------------------------------------------
+
+
+class ProductCategory(str, Enum):
+  books = "Books"
+  clothing = "Clothing"
+  electronic = "Electronic"
+
+@app.get("/product/{category}")
+async def get_product(category : ProductCategory):
+  return {"response" : "Product Fetched", "category" : category}
+
+
+### ------------------------------------------------------------------------------------------------------
+## Working with python enumerations
+### ------------------------------------------------------------------------------------------------------
+
+class ProductCategory(str, Enum):
+  books = "books"
+  clothing = "clothing"
+  electronic = "electronic"
+  
+@app.get("/product/{category}")
+async def get_product(category : ProductCategory):
+  if category == ProductCategory.books:
+    return {"category" : category}
+  
+  elif category.value == 'clothing':
+    return {"category" : category}
+  
+  elif category == ProductCategory.electronic.value:
+    return {"category" : category}
+  else:
+    return {"message" : "Unknow catgory"}
