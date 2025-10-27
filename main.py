@@ -149,3 +149,61 @@ app = FastAPI()
 ### ------------------------------------------------------------------------------------------------------
 ## CRUD Operation 
 ### ------------------------------------------------------------------------------------------------------
+
+PRODUCTS = [
+  {
+    "product_id": "FKP1001",
+    "product_name": "Turbo-Clean All-in-One Detergent",
+    "category": "Household Goods",
+    "price": 19.99,
+    "in_stock": True,
+    "description": "The revolutionary cleaner that promises to remove any stain instantly. Contains 'secret formula X.' (Warning: May leave a sticky residue.)"
+  },
+  {
+    "product_id": "FKP1002",
+    "product_name": "Eternal Youth Face Cream",
+    "category": "Cosmetics",
+    "price": 89.50,
+    "in_stock": False,
+    "description": "Instantly reduces the appearance of wrinkles by 100%. Side effects may include temporary, minor itching. Sold as a novelty item."
+  },
+  {
+    "product_id": "FKP1003",
+    "product_name": "Ultra-Power USB-C Cable (10ft)",
+    "category": "Electronics",
+    "price": 5.99,
+    "in_stock": True,
+    "description": "Guaranteed to charge your device 50% faster. Known to fail after three uses."
+  },
+  {
+    "product_id": "FKP1004",
+    "product_name": "Organic Gluten-Free Water",
+    "category": "Food & Drink",
+    "price": 3.49,
+    "in_stock": True,
+    "description": "The purest, most natural water, now with a 'certified organic' sticker. Tastes exactly like regular tap water."
+  },
+  {
+    "product_id": "FKP1005",
+    "product_name": "Invisible Wireless Headphones",
+    "category": "Electronics",
+    "price": 199.00,
+    "in_stock": False,
+    "description": "So small and seamless, you won't even know you're wearing them! (Because they're literally just an empty box.)"
+  }
+]
+
+
+# Get all products
+@app.get("/products")
+async def all_products():
+  return {"message" : PRODUCTS}
+
+
+# Get Single Product
+@app.get("/products/{product_id}")
+async def get_single_product(product_id):
+  for product in PRODUCTS:
+    return product
+  
+  
