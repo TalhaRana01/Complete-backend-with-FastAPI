@@ -216,16 +216,27 @@ async def create_product(new_product: dict):
 
 @app.put("/products/{product_id}")
 async def update_product(product_id, update_product: dict):
-  return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+  for index, product in enumerate(PRODUCTS):
+    if product['product_id'] == product_id:
+      PRODUCTS[index] = update_product
+      return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+      
+    
 
 
 @app.patch("/products/{product_id}")
 async def partial_update_product(product_id, update_product: dict):
-  return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+  for index, product in enumerate(PRODUCTS):
+    if product['product_id'] == product_id:
+      PRODUCTS[index] = update_product
+      return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
 
 @app.delete("/products/{product_id}")
-async def delete_product(product_id):
-  pass
+async def delete_product(product_id,):
+  for index, product in enumerate(PRODUCTS):
+    if product['product_id'] == product_id:
+      PRODUCTS[index] = delete_product
+      return { "message" : " Product deleted", "deleted_product": delete_product}
   
   
   
