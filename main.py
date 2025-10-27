@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 from pydantic import BaseModel
 
 
@@ -29,9 +29,9 @@ app = FastAPI()
 
 ## Pydantic 
 
-class Product(BaseModel):
-  name : str
-  price : float
+# class Product(BaseModel):
+#   name : str
+#   price : float
   
 
 # POST Request
@@ -64,34 +64,44 @@ class Product(BaseModel):
 
 # Get Method 
 
-@app.get("/")
-def home():
-  return {"response" : "Home Page "}
+# @app.get("/")
+# def home():
+#   return {"response" : "Home Page "}
 
-# Get all products
-@app.get("/product")
-def get_product():
-  return {"message" : "Get All Products Method"}
+# # Get all products
+# @app.get("/product")
+# def get_product():
+#   return {"message" : "Get All Products Method"}
 
 # Post Method
 
-@app.post("/product/{product_id}")
-def create_product(product_id : int, new_product : dict):
-  return {"product id" :product_id, "product" : new_product}
+# @app.post("/product/{product_id}")
+# def create_product(product_id : int, new_product : dict):
+#   return {"product id" :product_id, "product" : new_product}
 
 
-@app.patch("/product/{product_id}")
-async def partial_update_product(new_update_product : Product, product_id: int):
-  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+# @app.patch("/product/{product_id}")
+# async def partial_update_product(new_update_product : Product, product_id: int):
+#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
 
-@app.put("/product/{product_id}")
-async def update_product(new_update_product : Product, product_id: int):
-  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+# @app.put("/product/{product_id}")
+# async def update_product(new_update_product : Product, product_id: int):
+#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
 
-@app.delete("/product/{product_id}")
-async def delete_product(new_update_product : Product, product_id: int):
-  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+# @app.delete("/product/{product_id}")
+# async def delete_product(new_update_product : Product, product_id: int):
+#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+
+
+### ------------------------------------------------------------------------------------------------------
+## Parameter with Type
+### ------------------------------------------------------------------------------------------------------
+
+ 
+@app.get("/product/{product_id}")
+def get_single_product(product_id: int,  ):
+  return {"response" : "Single Product ID", "product_id" : product_id }
 
 
