@@ -275,6 +275,16 @@ async def delete_product(product_id,):
 #   return {"status" : "OK", "lan" : q, "limit": limit, "lan" : en}
 
 
+# @app.get("/course")
+# async def course(course: str, type: bool):
+#   return {"course" : course, "type": True}
+
+### ------------------------------------------------------------------------------------------------------
+## Default Query Parameters
+### ------------------------------------------------------------------------------------------------------
+# @app.get("/course")
+# async def course(course: str, limit:int=10):
+#   return {"course" : course, "limit": limit}
 @app.get("/course")
-async def course(course: str, type: bool):
-  return {"course" : course, "type": True}
+async def course(course: str="tech"):
+  return {"course" : course}
