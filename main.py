@@ -291,6 +291,16 @@ async def delete_product(product_id,):
 ## Optional Query Parameters by assigning None 
 ### ------------------------------------------------------------------------------------------------------
 
-@app.get("/course")
-async def course(course: str, limit: int = None):
-  return {"status": "OK", "course" : course, "limit": limit}
+# @app.get("/course")
+# async def course(course: str, limit: int | None = None) :
+#   return {"status": "OK", "course" : course, "limit": limit}
+
+# @app.get("/course")
+# async def course(limit: int, course: str | None = None) :
+#   return {"status": "OK", "course" : course, "limit": limit}
+
+
+# Path and Query Parameters
+@app.get("/product/{year}")
+async def product(year: str, category : str) :
+  return {"status": "OK", "category" : category, "year" : year}
