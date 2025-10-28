@@ -301,6 +301,10 @@ async def delete_product(product_id,):
 
 
 # Path and Query Parameters
+# @app.get("/product/{year}")
+# async def product(year: str, category : str, limit: int) :
+#   return {"status": "OK", "category" : category, "year" : year, "limit": limit}
+
 @app.get("/product/{year}")
-async def product(year: str, category : str) :
-  return {"status": "OK", "category" : category, "year" : year}
+async def product(year: str, category : str | None = None, limit: int = 10) :
+  return {"status": "OK", "category" : category, "year" : year, "limit": limit}
