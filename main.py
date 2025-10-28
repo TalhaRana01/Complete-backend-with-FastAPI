@@ -243,3 +243,38 @@ async def delete_product(product_id,):
 ### ------------------------------------------------------------------------------------------------------
 ## Query Parameters
 ### ------------------------------------------------------------------------------------------------------
+
+
+### ------------------------------------------------------------------------------------------------------
+## Single Query Parameters
+### ------------------------------------------------------------------------------------------------------
+
+# @app.get("/product")
+# async def product(category:str):
+#   return {"status" : "OK", "lan" : category}
+
+# @app.get("/product")
+# async def product(en:str):
+#   return {"status" : "OK", "lan" : en}
+
+# @app.get("/product")
+# async def product(q:str):
+#   return {"status" : "OK", "lan" : q}
+
+# @app.get("/course")
+# async def course(course: str):
+#   return {"course" : course}
+
+
+### ------------------------------------------------------------------------------------------------------
+## Multi Query Parameters
+### ------------------------------------------------------------------------------------------------------
+
+# @app.get("/product")
+# async def product(q:str, limit: int, en:str):
+#   return {"status" : "OK", "lan" : q, "limit": limit, "lan" : en}
+
+
+@app.get("/course")
+async def course(course: str, type: bool):
+  return {"course" : course, "type": True}
