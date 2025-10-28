@@ -150,93 +150,93 @@ app = FastAPI()
 ## CRUD Operation with dummy data
 ### ------------------------------------------------------------------------------------------------------
 
-PRODUCTS = [
-  {
-    "product_id": "FKP1001",
-    "product_name": "Turbo-Clean All-in-One Detergent",
-    "category": "Household Goods",
-    "price": 19.99,
-    "in_stock": True,
-    "description": "The revolutionary cleaner that promises to remove any stain instantly. Contains 'secret formula X.' (Warning: May leave a sticky residue.)"
-  },
-  {
-    "product_id": "FKP1002",
-    "product_name": "Eternal Youth Face Cream",
-    "category": "Cosmetics",
-    "price": 89.50,
-    "in_stock": False,
-    "description": "Instantly reduces the appearance of wrinkles by 100%. Side effects may include temporary, minor itching. Sold as a novelty item."
-  },
-  {
-    "product_id": "FKP1003",
-    "product_name": "Ultra-Power USB-C Cable (10ft)",
-    "category": "Electronics",
-    "price": 5.99,
-    "in_stock": True,
-    "description": "Guaranteed to charge your device 50% faster. Known to fail after three uses."
-  },
-  {
-    "product_id": "FKP1004",
-    "product_name": "Organic Gluten-Free Water",
-    "category": "Food & Drink",
-    "price": 3.49,
-    "in_stock": True,
-    "description": "The purest, most natural water, now with a 'certified organic' sticker. Tastes exactly like regular tap water."
-  },
-  {
-    "product_id": "FKP1005",
-    "product_name": "Invisible Wireless Headphones",
-    "category": "Electronics",
-    "price": 199.00,
-    "in_stock": False,
-    "description": "So small and seamless, you won't even know you're wearing them! (Because they're literally just an empty box.)"
-  }
-]
+# PRODUCTS = [
+#   {
+#     "product_id": "FKP1001",
+#     "product_name": "Turbo-Clean All-in-One Detergent",
+#     "category": "Household Goods",
+#     "price": 19.99,
+#     "in_stock": True,
+#     "description": "The revolutionary cleaner that promises to remove any stain instantly. Contains 'secret formula X.' (Warning: May leave a sticky residue.)"
+#   },
+#   {
+#     "product_id": "FKP1002",
+#     "product_name": "Eternal Youth Face Cream",
+#     "category": "Cosmetics",
+#     "price": 89.50,
+#     "in_stock": False,
+#     "description": "Instantly reduces the appearance of wrinkles by 100%. Side effects may include temporary, minor itching. Sold as a novelty item."
+#   },
+#   {
+#     "product_id": "FKP1003",
+#     "product_name": "Ultra-Power USB-C Cable (10ft)",
+#     "category": "Electronics",
+#     "price": 5.99,
+#     "in_stock": True,
+#     "description": "Guaranteed to charge your device 50% faster. Known to fail after three uses."
+#   },
+#   {
+#     "product_id": "FKP1004",
+#     "product_name": "Organic Gluten-Free Water",
+#     "category": "Food & Drink",
+#     "price": 3.49,
+#     "in_stock": True,
+#     "description": "The purest, most natural water, now with a 'certified organic' sticker. Tastes exactly like regular tap water."
+#   },
+#   {
+#     "product_id": "FKP1005",
+#     "product_name": "Invisible Wireless Headphones",
+#     "category": "Electronics",
+#     "price": 199.00,
+#     "in_stock": False,
+#     "description": "So small and seamless, you won't even know you're wearing them! (Because they're literally just an empty box.)"
+#   }
+# ]
 
 
 # Get all products
-@app.get("/products")
-async def all_products():
-  return {"message" : PRODUCTS}
+# @app.get("/products", status_code=status.HTTP_200_OK)
+# async def all_products():
+#   return {"message" : PRODUCTS}
 
 
-# Get Single Product
-@app.get("/products/{product_id}")
-async def get_single_product(product_id):
-  for product in PRODUCTS:
-    if product['product_id'] == product_id:
-      return product
+# # Get Single Product
+# @app.get("/products/{product_id}", status_code=status.HTTP_200_OK)
+# async def get_single_product(product_id):
+#   for product in PRODUCTS:
+#     if product['product_id'] == product_id:
+#       return product
 
 # Create product  
-@app.post("/products/")
-async def create_product(new_product: dict):
-  PRODUCTS.append(new_product)
-  return {"response" : "Product created ", "new_product": new_product}
+# @app.post("/products/", status_code=status.HTTP_201_CREATED)
+# async def create_product(new_product: dict):
+#   PRODUCTS.append(new_product)
+#   return {"response" : "Product created ", "new_product": new_product}
 
 
-@app.put("/products/{product_id}")
-async def update_product(product_id, update_product: dict):
-  for index, product in enumerate(PRODUCTS):
-    if product['product_id'] == product_id:
-      PRODUCTS[index] = update_product
-      return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+# @app.put("/products/{product_id}")
+# async def update_product(product_id, update_product: dict):
+#   for index, product in enumerate(PRODUCTS):
+#     if product['product_id'] == product_id:
+#       PRODUCTS[index] = update_product
+#       return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
       
     
 
 
-@app.patch("/products/{product_id}")
-async def partial_update_product(product_id, update_product: dict):
-  for index, product in enumerate(PRODUCTS):
-    if product['product_id'] == product_id:
-      PRODUCTS[index] = update_product
-      return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+# @app.patch("/products/{product_id}")
+# async def partial_update_product(product_id, update_product: dict):
+#   for index, product in enumerate(PRODUCTS):
+#     if product['product_id'] == product_id:
+#       PRODUCTS[index] = update_product
+#       return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
 
-@app.delete("/products/{product_id}")
-async def delete_product(product_id,):
-  for index, product in enumerate(PRODUCTS):
-    if product['product_id'] == product_id:
-      PRODUCTS.pop(index)
-      return { "message" : " Product deleted", "deleted_product": delete_product}
+# @app.delete("/products/{product_id}")
+# async def delete_product(product_id,):
+#   for index, product in enumerate(PRODUCTS):
+#     if product['product_id'] == product_id:
+#       PRODUCTS.pop(index)
+#       return { "message" : " Product deleted", "deleted_product": delete_product}
   
   
   
@@ -315,6 +315,7 @@ async def delete_product(product_id,):
 ### ------------------------------------------------------------------------------------------------------
 
 
+
 # @app.post("/product", status_code=201)
 # async def create_product(product: dict):
 #   return product
@@ -323,6 +324,67 @@ async def delete_product(product_id,):
 # async def create_product(product: dict):
 #   return product
 
-@app.get("/product", status_code=status.HTTP_200_OK)
-async def get_all_product():
-  return {"status" : "OK", "product": PRODUCTS}
+# @app.get("/product", status_code=status.HTTP_200_OK)
+# async def get_all_product():
+#   return {"status" : "OK", "product": PRODUCTS}
+
+
+
+### ------------------------------------------------------------------------------------------------------
+## Basic Query Parameters
+### ------------------------------------------------------------------------------------------------------
+
+PRODUCTS = [
+  {
+    "product_id": "FKP1001",
+    "product_name": "Turbo-Clean All-in-One Detergent",
+    "category": "Household Goods",
+    "price": 19.99,
+    "in_stock": True,
+    "description": "The revolutionary cleaner that promises to remove any stain instantly. Contains 'secret formula X.' (Warning: May leave a sticky residue.)"
+  },
+  {
+    "product_id": "FKP1002",
+    "product_name": "Eternal Youth Face Cream",
+    "category": "Cosmetics",
+    "price": 89.50,
+    "in_stock": False,
+    "description": "Instantly reduces the appearance of wrinkles by 100%. Side effects may include temporary, minor itching. Sold as a novelty item."
+  },
+  {
+    "product_id": "FKP1003",
+    "product_name": "Ultra-Power USB-C Cable (10ft)",
+    "category": "Electronics",
+    "price": 5.99,
+    "in_stock": True,
+    "description": "Guaranteed to charge your device 50% faster. Known to fail after three uses."
+  },
+  {
+    "product_id": "FKP1004",
+    "product_name": "Organic Gluten-Free Water",
+    "category": "Food & Drink",
+    "price": 3.49,
+    "in_stock": True,
+    "description": "The purest, most natural water, now with a 'certified organic' sticker. Tastes exactly like regular tap water."
+  },
+  {
+    "product_id": "FKP1005",
+    "product_name": "Invisible Wireless Headphones",
+    "category": "Electronics",
+    "price": 199.00,
+    "in_stock": False,
+    "description": "So small and seamless, you won't even know you're wearing them! (Because they're literally just an empty box.)"
+  }
+]
+
+# @app.get("/products")
+# async def products(search:str | None = None):
+#   if search:
+#     serach_lower = search.lower()
+#     filtered_product = []
+#     for product in PRODUCTS:
+#       if serach_lower in product["product_name"].lower():
+#         filtered_product.append(product)
+       
+#     return filtered_product
+#   return PRODUCTS    
