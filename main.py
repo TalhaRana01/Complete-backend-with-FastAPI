@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from enum import Enum
 from pydantic import BaseModel
 
@@ -319,6 +319,10 @@ async def delete_product(product_id,):
 # async def create_product(product: dict):
 #   return product
 
-@app.get("/product", status_code=200)
+# @app.post("/product", status_code=status.HTTP_201_CREATED)
+# async def create_product(product: dict):
+#   return product
+
+@app.get("/product", status_code=status.HTTP_200_OK)
 async def get_all_product():
   return {"status" : "OK", "product": PRODUCTS}
