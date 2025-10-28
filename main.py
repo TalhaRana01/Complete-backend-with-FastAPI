@@ -282,9 +282,15 @@ async def delete_product(product_id,):
 ### ------------------------------------------------------------------------------------------------------
 ## Default Query Parameters
 ### ------------------------------------------------------------------------------------------------------
+
 # @app.get("/course")
 # async def course(course: str, limit:int=10):
 #   return {"course" : course, "limit": limit}
+
+### ------------------------------------------------------------------------------------------------------
+## Optional Query Parameters by assigning None 
+### ------------------------------------------------------------------------------------------------------
+
 @app.get("/course")
-async def course(course: str="tech"):
-  return {"course" : course}
+async def course(course: str, limit: int = None):
+  return {"status": "OK", "course" : course, "limit": limit}
