@@ -305,6 +305,20 @@ async def delete_product(product_id,):
 # async def product(year: str, category : str, limit: int) :
 #   return {"status": "OK", "category" : category, "year" : year, "limit": limit}
 
-@app.get("/product/{year}")
-async def product(year: str, category : str | None = None, limit: int = 10) :
-  return {"status": "OK", "category" : category, "year" : year, "limit": limit}
+# @app.get("/product/{year}")
+# async def product(year: str, category : str | None = None, limit: int = 10) :
+#   return {"status": "OK", "category" : category, "year" : year, "limit": limit}
+
+
+### ------------------------------------------------------------------------------------------------------
+## Response Status Code
+### ------------------------------------------------------------------------------------------------------
+
+
+# @app.post("/product", status_code=201)
+# async def create_product(product: dict):
+#   return product
+
+@app.get("/product", status_code=200)
+async def get_all_product():
+  return {"status" : "OK", "product": PRODUCTS}
