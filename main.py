@@ -264,9 +264,11 @@ PRODUCTS = [
 #   return {"status" : "OK", "lan" : q}
 
 
-@app.get("/sign-up")
-async def user_created(name: str, username: str, email:str, password:str):
+@app.get("/user")
+async def user_created(name: str, username: str, email:str | None = None, password: str = Query(..., max_length=10)):
   return {"message" : "Account created", "your_name": name, "username":username, "your_email": email, "password": password }
+
+
 
 # @app.get("/course")
 # async def course(course: str):
