@@ -1,6 +1,7 @@
 from fastapi import FastAPI, status, Query
 from enum import Enum
 from pydantic import BaseModel
+from typing import Annotated
 
 
 app = FastAPI()
@@ -395,9 +396,30 @@ PRODUCTS = [
 
 # Es code sy hum user query ko limit kr skty hain es method sy Query(default=None, max_length=5) old way to limit the query
 
-# Validation without Annotated
+# # Validation without Annotated
+# @app.get("/products")
+# async def products(search:str | None = Query(default=None, max_length=10)):
+#   if search:
+#     serach_lower = search.lower()
+#     filtered_product = []
+#     for product in PRODUCTS:
+#       if serach_lower in product["product_name"].lower():
+#         filtered_product.append(product)
+       
+#     return filtered_product
+#   return PRODUCTS    
+
+
+# Annotated method import krain ge typing module sy
+# Validation with Annotated
+
 @app.get("/products")
-async def products(search:str | None = Query(default=None, max_length=10)):
+async def products(search: 
+  Annotated[
+    str | None, 
+    Query(max_length=10)
+    ] = None ):
+  
   if search:
     serach_lower = search.lower()
     filtered_product = []
