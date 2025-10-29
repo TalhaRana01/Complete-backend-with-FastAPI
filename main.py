@@ -27,31 +27,32 @@ app = FastAPI()
 ## Read single product by id
 # @app.get("/product/{product_id}")
 # async def product(product_id : int):
-#   return  {"product ID" : product_id}
+#   return  {"message":"Product", "product ID" : product_id}
 
 ## Pydantic 
 
-# class Product(BaseModel):
-#   name : str
-#   price : float
+class Product(BaseModel):
+  name : str | None = None
+  price : float
   
 
 # POST Request
 
 # Create a product
-# @app.post("/product")
+# @app.post("/product", status_code=status.HTTP_201_CREATED)
 # async def create_product(new_product: dict):
 #   return {"message" : "Product is created", "product" : new_product}
 
 
-# Create a product
+# Create a product with Pydantic BaseModel
+
 # @app.post("/product")
 # async def create_product(new_product: Product):
 #   return {"message" : "Product is created", "product" : new_product}
 
 
 # @app.put("/product/{product_id}")
-# async def update_product(new_update_product : Product, product_id: int):
+# async def update_product(new_update_product : Product | None = None , product_id: int | None = None ):
 #   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
 # @app.patch("/product/{product_id}")
@@ -70,7 +71,7 @@ app = FastAPI()
 # def home():
 #   return {"response" : "Home Page "}
 
-# # Get all products
+# # # Get all products
 # @app.get("/product")
 # def get_product():
 #   return {"message" : "Get All Products Method"}
@@ -105,7 +106,7 @@ app = FastAPI()
 
  
 # @app.get("/product/{product_id}")
-# def get_single_product(product_id: int,  ):
+# def get_single_product(product_id: int):
 #   return {"response" : "Single Product ID", "product_id" : product_id }
 
 
@@ -151,48 +152,48 @@ app = FastAPI()
 ## CRUD Operation with dummy data
 ### ------------------------------------------------------------------------------------------------------
 
-# PRODUCTS = [
-#   {
-#     "product_id": "FKP1001",
-#     "product_name": "Turbo-Clean All-in-One Detergent",
-#     "category": "Household Goods",
-#     "price": 19.99,
-#     "in_stock": True,
-#     "description": "The revolutionary cleaner that promises to remove any stain instantly. Contains 'secret formula X.' (Warning: May leave a sticky residue.)"
-#   },
-#   {
-#     "product_id": "FKP1002",
-#     "product_name": "Eternal Youth Face Cream",
-#     "category": "Cosmetics",
-#     "price": 89.50,
-#     "in_stock": False,
-#     "description": "Instantly reduces the appearance of wrinkles by 100%. Side effects may include temporary, minor itching. Sold as a novelty item."
-#   },
-#   {
-#     "product_id": "FKP1003",
-#     "product_name": "Ultra-Power USB-C Cable (10ft)",
-#     "category": "Electronics",
-#     "price": 5.99,
-#     "in_stock": True,
-#     "description": "Guaranteed to charge your device 50% faster. Known to fail after three uses."
-#   },
-#   {
-#     "product_id": "FKP1004",
-#     "product_name": "Organic Gluten-Free Water",
-#     "category": "Food & Drink",
-#     "price": 3.49,
-#     "in_stock": True,
-#     "description": "The purest, most natural water, now with a 'certified organic' sticker. Tastes exactly like regular tap water."
-#   },
-#   {
-#     "product_id": "FKP1005",
-#     "product_name": "Invisible Wireless Headphones",
-#     "category": "Electronics",
-#     "price": 199.00,
-#     "in_stock": False,
-#     "description": "So small and seamless, you won't even know you're wearing them! (Because they're literally just an empty box.)"
-#   }
-# ]
+PRODUCTS = [
+  {
+    "product_id": "FKP1001",
+    "product_name": "Turbo-Clean All-in-One Detergent",
+    "category": "Household Goods",
+    "price": 19.99,
+    "in_stock": True,
+    "description": "The revolutionary cleaner that promises to remove any stain instantly. Contains 'secret formula X.' (Warning: May leave a sticky residue.)"
+  },
+  {
+    "product_id": "FKP1002",
+    "product_name": "Eternal Youth Face Cream",
+    "category": "Cosmetics",
+    "price": 89.50,
+    "in_stock": False,
+    "description": "Instantly reduces the appearance of wrinkles by 100%. Side effects may include temporary, minor itching. Sold as a novelty item."
+  },
+  {
+    "product_id": "FKP1003",
+    "product_name": "Ultra-Power USB-C Cable (10ft)",
+    "category": "Electronics",
+    "price": 5.99,
+    "in_stock": True,
+    "description": "Guaranteed to charge your device 50% faster. Known to fail after three uses."
+  },
+  {
+    "product_id": "FKP1004",
+    "product_name": "Organic Gluten-Free Water",
+    "category": "Food & Drink",
+    "price": 3.49,
+    "in_stock": True,
+    "description": "The purest, most natural water, now with a 'certified organic' sticker. Tastes exactly like regular tap water."
+  },
+  {
+    "product_id": "FKP1005",
+    "product_name": "Invisible Wireless Headphones",
+    "category": "Electronics",
+    "price": 199.00,
+    "in_stock": False,
+    "description": "So small and seamless, you won't even know you're wearing them! (Because they're literally just an empty box.)"
+  }
+]
 
 
 # Get all products
@@ -208,7 +209,7 @@ app = FastAPI()
 #     if product['product_id'] == product_id:
 #       return product
 
-# Create product  
+# # Create product  
 # @app.post("/products/", status_code=status.HTTP_201_CREATED)
 # async def create_product(new_product: dict):
 #   PRODUCTS.append(new_product)
@@ -250,9 +251,9 @@ app = FastAPI()
 ## Single Query Parameters
 ### ------------------------------------------------------------------------------------------------------
 
-# @app.get("/product")
-# async def product(category:str):
-#   return {"status" : "OK", "lan" : category}
+@app.get("/product")
+async def product(category:str):
+  return {"status" : "OK", "lan" : category}
 
 # @app.get("/product")
 # async def product(en:str):
@@ -437,16 +438,16 @@ PRODUCTS = [
 
 ## REQUIRED PARAMETERS
 
-@app.get("/products")
-async def products(search: 
-  Annotated[str, Query(max_length=10)] ):
+# @app.get("/products")
+# async def products(search: 
+#   Annotated[str, Query(max_length=10)] ):
   
-  if search:
-    serach_lower = search.lower()
-    filtered_product = []
-    for product in PRODUCTS:
-      if serach_lower in product["product_name"].lower():
-        filtered_product.append(product)
+#   if search:
+#     serach_lower = search.lower()
+#     filtered_product = []
+#     for product in PRODUCTS:
+#       if serach_lower in product["product_name"].lower():
+#         filtered_product.append(product)
        
-    return filtered_product
-  return PRODUCTS   
+#     return filtered_product
+#   return PRODUCTS   
