@@ -429,3 +429,10 @@ async def products(search:
        
     return filtered_product
   return PRODUCTS    
+
+
+# Why use Annotated ?
+## FastAPI 0.95+ officially recommends using Annotated for dependencies and parameters
+
+
+## REQUIRED PARAMETERS
