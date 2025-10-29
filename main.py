@@ -251,9 +251,9 @@ PRODUCTS = [
 ## Single Query Parameters
 ### ------------------------------------------------------------------------------------------------------
 
-@app.get("/product")
-async def product(category:str):
-  return {"status" : "OK", "lan" : category}
+# @app.get("/product")
+# async def product(category:str):
+#   return {"status" : "OK", "lan" : category}
 
 # @app.get("/product")
 # async def product(en:str):
@@ -262,6 +262,11 @@ async def product(category:str):
 # @app.get("/product")
 # async def product(q:str):
 #   return {"status" : "OK", "lan" : q}
+
+
+@app.get("/sign-up")
+async def user_created(name: str, username: str, email:str, password:str):
+  return {"message" : "Account created", "your_name": name, "username":username, "your_email": email, "password": password }
 
 # @app.get("/course")
 # async def course(course: str):
