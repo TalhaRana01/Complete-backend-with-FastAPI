@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, Query
 from enum import Enum
 from pydantic import BaseModel
 
@@ -388,3 +388,21 @@ PRODUCTS = [
        
 #     return filtered_product
 #   return PRODUCTS    
+
+
+
+# Import Query from FastAPI for this code 
+
+# Es code sy hum user query ko limit kr skty hain es method sy Query(default=None, max_length=5)
+
+@app.get("/products")
+async def products(search:str | None = Query(default=None, max_length=5)):
+  if search:
+    serach_lower = search.lower()
+    filtered_product = []
+    for product in PRODUCTS:
+      if serach_lower in product["product_name"].lower():
+        filtered_product.append(product)
+       
+    return filtered_product
+  return PRODUCTS    
