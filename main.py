@@ -413,12 +413,33 @@ PRODUCTS = [
 # Annotated method import krain ge typing module sy
 # Validation with Annotated
 
+# @app.get("/products")
+# async def products(search: 
+#   Annotated[
+#     str | None, 
+#     Query(max_length=10)
+#     ] = None ):
+  
+#   if search:
+#     serach_lower = search.lower()
+#     filtered_product = []
+#     for product in PRODUCTS:
+#       if serach_lower in product["product_name"].lower():
+#         filtered_product.append(product)
+       
+#     return filtered_product
+#   return PRODUCTS    
+
+
+# Why use Annotated ?
+## FastAPI 0.95+ officially recommends using Annotated for dependencies and parameters
+
+
+## REQUIRED PARAMETERS
+
 @app.get("/products")
 async def products(search: 
-  Annotated[
-    str | None, 
-    Query(max_length=10)
-    ] = None ):
+  Annotated[str, Query(max_length=10)] ):
   
   if search:
     serach_lower = search.lower()
@@ -428,11 +449,4 @@ async def products(search:
         filtered_product.append(product)
        
     return filtered_product
-  return PRODUCTS    
-
-
-# Why use Annotated ?
-## FastAPI 0.95+ officially recommends using Annotated for dependencies and parameters
-
-
-## REQUIRED PARAMETERS
+  return PRODUCTS   
