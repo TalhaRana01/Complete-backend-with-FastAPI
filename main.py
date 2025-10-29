@@ -393,10 +393,11 @@ PRODUCTS = [
 
 # Import Query from FastAPI for this code 
 
-# Es code sy hum user query ko limit kr skty hain es method sy Query(default=None, max_length=5)
+# Es code sy hum user query ko limit kr skty hain es method sy Query(default=None, max_length=5) old way to limit the query
 
+# Validation without Annotated
 @app.get("/products")
-async def products(search:str | None = Query(default=None, max_length=5)):
+async def products(search:str | None = Query(default=None, max_length=10)):
   if search:
     serach_lower = search.lower()
     filtered_product = []
