@@ -264,9 +264,9 @@ PRODUCTS = [
 #   return {"status" : "OK", "lan" : q}
 
 
-# @app.get("/user")
-# async def user_created(name: str, username: str, email:str | None = None, password: str = Query(..., max_length=10)):
-#   return {"message" : "Account created", "your_name": name, "username":username, "your_email": email, "password": password }
+@app.get("/user")
+async def user_created(name: str, username: str, email:str | None = None, password: str = Annotated[str, Query(max_length=10)]):
+  return {"message" : "Account created", "your_name": name, "username":username, "your_email": email, "password": password }
 
 
 
