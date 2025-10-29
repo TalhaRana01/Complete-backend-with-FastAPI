@@ -1,7 +1,10 @@
-from fastapi import FastAPI, status, Query
+from fastapi import FastAPI, status, Query, HTTPException
+from typing import List, Optional, Annotated
 from enum import Enum
 from pydantic import BaseModel
-from typing import Annotated
+
+
+
 
 
 app = FastAPI()
@@ -338,6 +341,69 @@ async def user_created(name: str, username: str, email: str, password: Annotated
 # @app.get("/product", status_code=status.HTTP_200_OK)
 # async def get_all_product():
 #   return {"status" : "OK", "product": PRODUCTS}
+
+
+##----------------------------------------------------------------------------------------
+## User Crud 
+##----------------------------------------------------------------------------------------
+
+
+
+# Initialize app
+app = FastAPI(title="User CRUD API")
+
+# Pydantic model for user data
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    age: Optional[int] = None
+
+# Mock database (in-memory list)
+users_db: List[User] = []
+
+# CREATE user
+@app.post("/users", response_model=User)
+async def create_user(user: User):
+    # Check if email already exists
+    for u in users_db:
+        if u.email == user.email:
+            raise HTTPException(status_code=400, detail="Email already exists")
+
+    users_db.append(user)
+    return user
+
+# READ all users
+@app.get("/users", response_model=List[User])
+async def get_users():
+    return users_db
+
+# READ single user by ID
+@app.get("/users/{user_id}", response_model=User)
+async def get_user(user_id: int):
+    for user in users_db:
+        if user.id == user_id:
+            return user
+    raise HTTPException(status_code=404, detail="User not found")
+
+# UPDATE user
+@app.put("/users/{user_id}", response_model=User)
+async def update_user(user_id: int, updated_user: User):
+    for index, user in enumerate(users_db):
+        if user.id == user_id:
+            users_db[index] = updated_user
+            return updated_user
+    raise HTTPException(status_code=404, detail="User not found")
+
+# DELETE user
+@app.delete("/users/{user_id}")
+async def delete_user(user_id: int):
+    for index, user in enumerate(users_db):
+        if user.id == user_id:
+            users_db.pop(index)
+            return {"message": "User deleted successfully"}
+    raise HTTPException(status_code=404, detail="User not found")
+
 
 
 
