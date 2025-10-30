@@ -584,7 +584,7 @@ def check_valid_id(id : str):
     raise ValueError("ID must be start with 'prod-")
   return id
 
-@app.get("/product")
+@app.get("/products")
 async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ] = None):
   """Es function main hum ny check_valid_id function ko call kia ha AfterValidator main"""
   
