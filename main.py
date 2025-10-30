@@ -1,7 +1,7 @@
 from fastapi import FastAPI, status, Query, HTTPException
 from typing import List, Optional, Annotated
 from enum import Enum
-from pydantic import BaseModel
+from pydantic import BaseModel, AfterValidator
 
 app = FastAPI()
 
@@ -560,18 +560,40 @@ PRODUCTS = [
 #   return PRODUCTS
 
 # Adding Metadata
-@app.get("/products")
-async def get_products(search: Annotated[list[str] | None, Query(alias="q", title="Search Products", description="Search by product title",deprecated=True )] = None):
+# @app.get("/products")
+# async def get_products(search: Annotated[list[str] | None, Query(alias="q", title="Search Products", description="Search by product title",deprecated=True )] = None):
   
-  if search:
-    filtered_product = []
-    for product in PRODUCTS:
-      for s in search:
-        if s.lower() in product["product_name"].lower():
-          filtered_product.append(product)
-    return filtered_product
-  return PRODUCTS
+#   if search:
+#     filtered_product = []
+#     for product in PRODUCTS:
+#       for s in search:
+#         if s.lower() in product["product_name"].lower():
+#           filtered_product.append(product)
+#     return filtered_product
+#   return PRODUCTS
 
+
+# Custom Validation 
+#  import  AfterValidator from Pydantic Model
+def check_valid_id(id : str):
+  """agr koi product id search nhi krta ha 
+      dash ky sath
+  """
+  if not id.startswith("prod-"):
+    # to ya error den ge
+    raise ValueError("ID must be start with 'prod-")
+  return id
+
+@app.get("/product")
+async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ] = None):
+  """Es function main hum ny check_valid_id function ko call kia ha AfterValidator main"""
+  
+  if id:
+    return {"id": id, "message": "Valid product ID"}
+  return {"message": "No ID provided"}
+
+  
+  
 
 
 
