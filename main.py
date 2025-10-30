@@ -631,26 +631,45 @@ PRODUCTS = [
 
 
 
+# Combine both Path and Query Parameters  basic 
+
+
+
+@app.get("/products/{product_id}")
+async def get_product(product_id: int, review: bool = False, rating: int = None):
+    """
+    - product_id -> Path parameter
+    - review, rating -> Query parameters
+    Example:
+      /products/10?review=true&rating=5
+    """
+    return {
+        "product_id": product_id,
+        "show_review": review,
+        "rating_filter": rating
+    }
+
+
 #  Combining Path and Query Parameters 
 # import  Query and Path parameter
     
-@app.get("/products/{id}")
-async def get_product(
-  # Path numeric id Validation
-  id : Annotated[int , Path(gt=0, le=100)], 
-  # Query search product name validation
-  search: Annotated[str | None, Query(alias="q", max_length=20)] = None):
+# @app.get("/products/{id}")
+# async def get_product(
+#   # Path numeric id Validation
+#   id : Annotated[int , Path(gt=0, le=100)], 
+#   # Query search product name validation
+#   search: Annotated[str | None, Query(alias="q", max_length=20)] = None):
   
-  # id : Annotated[int , Path(gt=0, le=100)], search: Annotated[str | None, Query(alias="q", max_length=20)] = None)
+#   # id : Annotated[int , Path(gt=0, le=100)], search: Annotated[str | None, Query(alias="q", max_length=20)] = None)
   
-  for product in PRODUCTS:
-    if product["product_id"] == id:
-      if search and search.lower() not in product["product_name"].lower():
-        return {"error": "Product does not match search term."}
+#   for product in PRODUCTS:
+#     if product["product_id"] == id:
+#       if search and search.lower() not in product["product_name"].lower():
+#         return {"error": "Product does not match search term."}
       
       
-      return product
-  raise HTTPException(status_code=404, detail="Product not found")
+#       return product
+#   raise HTTPException(status_code=404, detail="Product not found")
 
 
 
