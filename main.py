@@ -530,25 +530,38 @@ PRODUCTS = [
 
 #  Multiple Search Terms ( List)
 
-@app.get("/products")
-async def get_products(search : Annotated[list[str] | None, Query()] = None):
+# @app.get("/products")
+# async def get_products(search : Annotated[list[str] | None, Query()] = None):
   
-  if search:
-    filtered_product = []
-    for product in PRODUCTS:
-      for s in search:
-        if s.lower() in product["product_name"].lower():
-          filtered_product.append(product)
-    return filtered_product
-  return PRODUCTS
+#   if search:
+#     filtered_product = []
+#     for product in PRODUCTS:
+#       for s in search:
+#         if s.lower() in product["product_name"].lower():
+#           filtered_product.append(product)
+#     return filtered_product
+#   return PRODUCTS
 
 
 
 
 # Alias parameters Query(alias="q")
 
+# @app.get("/products")
+# async def get_products(search: Annotated[list[str] | None, Query(alias="q")] = None):
+  
+#   if search:
+#     filtered_product = []
+#     for product in PRODUCTS:
+#       for s in search:
+#         if s.lower() in product["product_name"].lower():
+#           filtered_product.append(product)
+#     return filtered_product
+#   return PRODUCTS
+
+# Adding Metadata
 @app.get("/products")
-async def get_products(search: Annotated[list[str] | None, Query(alias="q")] = None):
+async def get_products(search: Annotated[list[str] | None, Query(alias="q", title="Search Products", description="Search by product title",deprecated=True )] = None):
   
   if search:
     filtered_product = []
@@ -559,7 +572,6 @@ async def get_products(search: Annotated[list[str] | None, Query(alias="q")] = N
     return filtered_product
   return PRODUCTS
 
-# Adding Metadata
 
 
 
