@@ -621,15 +621,36 @@ PRODUCTS = [
 
 # Add Metadata with Path
 
+# @app.get("/products/{id}")
+# async def get_product(id: Annotated[int, Path(gt=0, title="Product ID", description="Enter your Product ID", example="prod-")]):
+#   for product in PRODUCTS:
+#     if product["product_id"] == id:
+#       return product
+#   # return {"error":"Product not found"}
+#   raise HTTPException(status_code=404, detail="Product ID not found")
+
+
+
+#  Combining Path and Query Parameters 
+# import  Query and Path parameter
+    
 @app.get("/products/{id}")
-async def get_product(id: Annotated[int, Path(gt=0, title="Product ID", description="Enter your Product ID", example="prod-")]):
+async def get_product(
+  # Path numeric id Validation
+  id : Annotated[int , Path(gt=0, le=100)], 
+  # Query search product name validation
+  search: Annotated[str | None, Query(alias="q", max_length=20)] = None):
+  
+  # id : Annotated[int , Path(gt=0, le=100)], search: Annotated[str | None, Query(alias="q", max_length=20)] = None)
+  
   for product in PRODUCTS:
     if product["product_id"] == id:
+      if search and search.lower() not in product["product_name"].lower():
+        return {"error": "Product does not match search term."}
+      
+      
       return product
-  # return {"error":"Product not found"}
-  raise HTTPException(status_code=404, detail="Product ID not found")
-
-    
+  raise HTTPException(status_code=404, detail="Product not found")
 
 
 
