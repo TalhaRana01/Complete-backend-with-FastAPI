@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, Query, HTTPException
+from fastapi import FastAPI, status, Query, HTTPException, Path
 from typing import List, Optional, Annotated
 from enum import Enum
 from pydantic import BaseModel, AfterValidator
@@ -269,9 +269,9 @@ PRODUCTS = [
 
   
 
-@app.get("/user")
-async def user_created(name: str, username: str, email: str, password: Annotated[str, Query(max_length=10)]):
-  return {"message" : "Account created", "your_name": name, "username":username, "your_email": email, "password": password }
+# @app.get("/user")
+# async def user_created(name: str, username: str, email: str, password: Annotated[str, Query(max_length=10)]):
+#   return {"message" : "Account created", "your_name": name, "username":username, "your_email": email, "password": password }
 
 
 
@@ -600,13 +600,23 @@ PRODUCTS = [
 
 #  Basic Path Parameter
 
+# @app.get("/products/{id}")
+# async def get_product(id: int):
+#   for product in PRODUCTS:
+#     if product["product_id"] == id:
+#       return product
+#   # return {"error":"Product not found"}
+#     raise HTTPException(status_code=404, detail="Product ID not found")
+
+
+# Numeric Validation
 @app.get("/products/{id}")
-async def get_product(id: int):
+async def get_product(id: Annotated[int, Path(gt=0, title="Product ID", description="Enter your Product ID", example="prod-")]):
   for product in PRODUCTS:
     if product["product_id"] == id:
       return product
   # return {"error":"Product not found"}
-    raise HTTPException(status_code=404, detail="Product ID not found")
+  raise HTTPException(status_code=404, detail="Product ID not found")
     
 
 
