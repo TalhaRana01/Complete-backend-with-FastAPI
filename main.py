@@ -610,6 +610,17 @@ PRODUCTS = [
 
 
 # Numeric Validation
+# @app.get("/products/{id}")
+# async def get_product(id: Annotated[int, Path(gt=0)]):
+#   for product in PRODUCTS:
+#     if product["product_id"] == id:
+#       return product
+#   # return {"error":"Product not found"}
+#   raise HTTPException(status_code=404, detail="Product ID not found")
+
+
+# Add Metadata with Path
+
 @app.get("/products/{id}")
 async def get_product(id: Annotated[int, Path(gt=0, title="Product ID", description="Enter your Product ID", example="prod-")]):
   for product in PRODUCTS:
@@ -617,6 +628,7 @@ async def get_product(id: Annotated[int, Path(gt=0, title="Product ID", descript
       return product
   # return {"error":"Product not found"}
   raise HTTPException(status_code=404, detail="Product ID not found")
+
     
 
 
