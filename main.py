@@ -413,7 +413,7 @@ async def user_created(name: str, username: str, email: str, password: Annotated
 
 PRODUCTS = [
   {
-    "product_id": "FKP1001",
+    "product_id": 1,
     "product_name": "Turbo-Clean All-in-One Detergent",
     "category": "Household Goods",
     "price": 19.99,
@@ -421,7 +421,7 @@ PRODUCTS = [
     "description": "The revolutionary cleaner that promises to remove any stain instantly. Contains 'secret formula X.' (Warning: May leave a sticky residue.)"
   },
   {
-    "product_id": "FKP1002",
+    "product_id": 2,
     "product_name": "Eternal Youth Face Cream",
     "category": "Cosmetics",
     "price": 89.50,
@@ -429,7 +429,7 @@ PRODUCTS = [
     "description": "Instantly reduces the appearance of wrinkles by 100%. Side effects may include temporary, minor itching. Sold as a novelty item."
   },
   {
-    "product_id": "FKP1003",
+    "product_id": 3,
     "product_name": "Ultra-Power USB-C Cable (10ft)",
     "category": "Electronics",
     "price": 5.99,
@@ -437,7 +437,7 @@ PRODUCTS = [
     "description": "Guaranteed to charge your device 50% faster. Known to fail after three uses."
   },
   {
-    "product_id": "FKP1004",
+    "product_id": 4,
     "product_name": "Organic Gluten-Free Water",
     "category": "Food & Drink",
     "price": 3.49,
@@ -445,7 +445,7 @@ PRODUCTS = [
     "description": "The purest, most natural water, now with a 'certified organic' sticker. Tastes exactly like regular tap water."
   },
   {
-    "product_id": "FKP1005",
+    "product_id": 5,
     "product_name": "Invisible Wireless Headphones",
     "category": "Electronics",
     "price": 199.00,
@@ -575,22 +575,42 @@ PRODUCTS = [
 
 # Custom Validation 
 #  import  AfterValidator from Pydantic Model
-def check_valid_id(id : str):
-  """agr koi product id search nhi krta ha 
-      dash ky sath
-  """
-  if not id.startswith("prod-"):
-    # to ya error den ge
-    raise ValueError("ID must be start with 'prod-")
-  return id
+# def check_valid_id(id : str):
+#   """agr koi product id search nhi krta ha 
+#       dash ky sath
+#   """
+#   if not id.startswith("prod-"):
+#     # to ya error den ge
+#     raise ValueError("ID must be start with 'prod-")
+#   return id
 
-@app.get("/products")
-async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ] = None):
-  """Es function main hum ny check_valid_id function ko call kia ha AfterValidator main"""
+# @app.get("/products")
+# async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ] = None):
+#   """Es function main hum ny check_valid_id function ko call kia ha AfterValidator main"""
   
-  if id:
-    return {"id": id, "message": "Valid product ID"}
-  return {"message": "No ID provided"}
+#   if id:
+#     return {"id": id, "message": "Valid product ID"}
+#   return {"message": "No ID provided"}
+
+
+
+### ------------------------------------------------------------------------------------------------------
+## Path Parameters and Numeric Validations
+### ------------------------------------------------------------------------------------------------------
+
+#  Basic Path Parameter
+
+@app.get("/products/{id}")
+async def get_product(id: int):
+  for product in PRODUCTS:
+    if product["product_id"] == id:
+      return product
+  # return {"error":"Product not found"}
+    raise HTTPException(status_code=404, detail="Product ID not found")
+    
+
+
+
 
   
   
