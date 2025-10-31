@@ -130,11 +130,26 @@ class Seller(BaseModel):
 #   return {"product": product, "seller" : seller}
 
 #  Singular values in body
-@app.post("/product")
-async def create_product(
-  product: Product, 
-  seller : Seller,
-  secret_key : Annotated[str, Body()] 
-  ):
+# @app.post("/product")
+# async def create_product(
+#   product: Product, 
+#   seller : Seller,
+#   secret_key : Annotated[str, Body()] 
+#   ):
   
-  return {"product": product, "seller" : seller, "secret_key": secret_key}
+#   return {"product": product, "seller" : seller, "secret_key": secret_key}
+
+
+
+# Embed a single body parameter
+# Without Embed
+
+@app.post("/product")
+async def create_product(product: Product ):
+  # return {"product": product}
+  return product
+
+# @app.post("/product")
+# async def create_product(product: Product ):
+#   # return {"product": product}
+#   return product
