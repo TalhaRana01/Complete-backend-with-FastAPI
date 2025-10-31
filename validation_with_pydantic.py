@@ -49,11 +49,11 @@ app = FastAPI(title= "Talha Rana Professional AI Engineer ")
 #   }
 # ]
 
-class Product(BaseModel):
-  id : int
-  name : str
-  price : float
-  stock : int | None = None
+# class Product(BaseModel):
+#   id : int
+#   name : str
+#   price : float
+#   stock : int | None = None
   
   
 # Get all products
@@ -103,9 +103,23 @@ class Product(BaseModel):
 
 
 #  Adding Query Parameters
-@app.put("/product/{product_id}")
-async def update_product(product_id: int, new_update_product: Product, discount : float | None = None):
-  return {"product_id" : product_id, "new_updated_product" : new_update_product, "discount": discount}
+# @app.put("/product/{product_id}")
+# async def update_product(product_id: int, new_update_product: Product, discount : float | None = None):
+#   return {"product_id" : product_id, "new_updated_product" : new_update_product, "discount": discount}
 
 
-
+#  Multiple Body Parameters
+class Product(BaseModel):
+  name : str
+  price : float
+  stock : int | None = None
+  
+class Seller(BaseModel):
+  username : str
+  full_name : str | None = None
+  
+  
+  
+@app.post("/product")
+async def create_product(product: Product, seller : Seller):
+  return {"product": product, "seller" : seller}
