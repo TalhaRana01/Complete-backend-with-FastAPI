@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from typing import Dict, Annotated
 from pydantic import BaseModel
 
@@ -119,7 +119,22 @@ class Seller(BaseModel):
   full_name : str | None = None
   
   
-  
+#  All body atrributes are required no optional 
+# @app.post("/product")
+# async def create_product(product: Product, seller : Seller):
+#   return {"product": product, "seller" : seller}
+
+#  Only product attributes are required and seller attributes are optional
+# @app.post("/product")
+# async def create_product(product: Product, seller : Seller | None = None ):
+#   return {"product": product, "seller" : seller}
+
+#  Singular values in body
 @app.post("/product")
-async def create_product(product: Product, seller : Seller):
-  return {"product": product, "seller" : seller}
+async def create_product(
+  product: Product, 
+  seller : Seller,
+  secret_key : Annotated[str, Body()] 
+  ):
+  
+  return {"product": product, "seller" : seller, "secret_key": secret_key}
