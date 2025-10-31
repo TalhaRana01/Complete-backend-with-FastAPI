@@ -144,12 +144,13 @@ class Seller(BaseModel):
 # Embed a single body parameter
 # Without Embed
 
-@app.post("/product")
-async def create_product(product: Product ):
-  # return {"product": product}
-  return product
-
 # @app.post("/product")
 # async def create_product(product: Product ):
 #   # return {"product": product}
 #   return product
+
+#  with embed body parameter
+@app.post("/product")
+async def create_product(product: Annotated[Product, Body(embed=True)] ):
+  # return {"product": product}
+  return product
