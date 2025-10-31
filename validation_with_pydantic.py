@@ -64,11 +64,11 @@ class Product(BaseModel):
 
 # without Pydantic 
 # create a product
-@app.post("/products")
+# @app.post("/products")
 # async def create_product(new_product : dict):
 #   return new_product 
 
-# with Pydantic 
+# with Pydantic  validation data
 # create a product
 # @app.post("/products")
 # async def create_product(new_product : Product):
@@ -87,19 +87,25 @@ class Product(BaseModel):
   
   
   # Add new calculated Attribute
-@app.post("/products")
-async def create_product(new_product: Product):
-    # ✅ Use dict() for compatibility with older FastAPI/Pydantic
-    product_dict = new_product.model_dump()
-    price_with_tax = new_product.price + (new_product.price * 18 / 100)
-    product_dict.update({"price_with_tax": price_with_tax})
-    return product_dict
+# @app.post("/products")
+# async def create_product(new_product: Product):
+#     # ✅ Use dict() for compatibility with older FastAPI/Pydantic
+#     product_dict = new_product.model_dump()
+#     price_with_tax = new_product.price + (new_product.price * 18 / 100)
+#     product_dict.update({"price_with_tax": price_with_tax})
+#     return product_dict
   
   
 #  Combineing Request Body with Path Parameters
+# @app.put("/product/{product_id}")
+# async def update_product(product_id: int, new_update_product: Product):
+#   return {"product_id" : product_id, "new_updated_product" : new_update_product}
+
+
+#  Adding Query Parameters
 @app.put("/product/{product_id}")
-async def update_product(product_id: int, new_update_product: Product):
-  return {"product_id" : product_id, "new_updated_product" : new_update_product}
+async def update_product(product_id: int, new_update_product: Product, discount : float | None = None):
+  return {"product_id" : product_id, "new_updated_product" : new_update_product, "discount": discount}
 
 
 
