@@ -62,7 +62,13 @@ class Product(BaseModel):
 #   return PRODUCTS
 
 
-# withouy Pydantic 
+# without Pydantic 
+# create a product
+@app.post("/products")
+# async def create_product(new_product : dict):
+#   return new_product 
+
+# with Pydantic 
 # create a product
 # @app.post("/products")
 # async def create_product(new_product : Product):
@@ -70,12 +76,25 @@ class Product(BaseModel):
 
 
 # Accessing Product attribute in function
-@app.post("/products")
-async def create_product(new_product : Product):
-  """Es sy hum pydantic class model main to attribute ya variables hain unko access kr skty hain"""
-  print(new_product.id)
-  print(new_product.name)
-  print(new_product.price)
-  print(new_product.stock)
-  return new_product 
+# @app.post("/products")
+# async def create_product(new_product : Product):
+#   """Es sy hum pydantic class model main to attribute ya variables hain unko access kr skty hain"""
+#   print(new_product.id)
+#   print(new_product.name)
+#   print(new_product.price)
+#   print(new_product.stock)
+#   return new_product 
   
+  
+  # Add new calculated Attribute
+@app.post("/products")
+async def create_product(new_product: Product):
+    # ✅ Use dict() for compatibility with older FastAPI/Pydantic
+    product_dict = new_product.dict()
+    price_with_tax = new_product.price + (new_product.price * 18 / 100)
+    product_dict.update({"price_with_tax": price_with_tax})
+    return product_dict
+  
+  
+
+
