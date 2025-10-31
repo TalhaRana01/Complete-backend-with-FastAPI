@@ -223,47 +223,58 @@ app = FastAPI(title= "Talha Rana Professional AI Engineer ")
   
   
 # # Attribute with lists of submodel
-class Category(BaseModel):
-  name : str = Field(
-    title="Category Name",
-    description="The name of the product category",
-    max_length=50,
-    min_length=1
-  )
-  description : str = Field(
-    default=None,
-    title="Category Description",
-    description="a brief of the category",
-    max_length=200)
+# class Category(BaseModel):
+#   name : str = Field(
+#     title="Category Name",
+#     description="The name of the product category",
+#     max_length=50,
+#     min_length=1
+#   )
+#   description : str = Field(
+#     default=None,
+#     title="Category Description",
+#     description="a brief of the category",
+#     max_length=200)
 
-# Base Model  
+# # Base Model  
+# class Product(BaseModel):
+#   name : str = Field(
+#     title="Product Name",
+#     description="The name of the product",
+#     max_length=100,
+#     min_length=1)
+#   price : float = Field(
+#     gt=0,
+#     title="Product Price",
+#     description="The price in USD, must be greater"
+#   )
+#   stock: int = Field(
+#     default=None, ge=0,
+#     description="Number of items in stock, must be non-negative"
+#   )
+  
+#   # category : Category = Field(default=None,title="Product  Category", description="The category to which the product belongs" )
+#   #  ✅we use list type here
+#   category: list[Category] | None =  Field(
+#     default=None,
+#     title="Product  Category",
+#     description="The category to which the product belongs" )
+  
+  
+  
+# @app.post("/products")
+# async def create_product(product : Product):
+#   return product
+  
+  
+#  Pydanic Body example Value
+
+# Using Field-level Example
 class Product(BaseModel):
-  name : str = Field(
-    title="Product Name",
-    description="The name of the product",
-    max_length=100,
-    min_length=1)
-  price : float = Field(
-    gt=0,
-    title="Product Price",
-    description="The price in USD, must be greater"
-  )
-  stock: int = Field(
-    default=None, ge=0,
-    description="Number of items in stock, must be non-negative"
-  )
-  
-  # category : Category = Field(default=None,title="Product  Category", description="The category to which the product belongs" )
-  #  ✅we use list type here
-  category: list[Category] | None =  Field(
-    default=None,
-    title="Product  Category",
-    description="The category to which the product belongs" )
-  
-  
+  name: str = Field(examples=["headphone"])
+  price : float = Field(examples=[2000])
+  stock : int | None = Field(default=None, examples=[10])
   
 @app.post("/products")
-async def create_product(product : Product):
+async def create_product(product: Product):
   return product
-  
-  
