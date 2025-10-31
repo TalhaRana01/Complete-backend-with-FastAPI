@@ -158,27 +158,69 @@ app = FastAPI(title= "Talha Rana Professional AI Engineer ")
 
 #  Pydantic Field
 
+# class Product(BaseModel):
+#   name : str = Field(
+#     titlt="this is product name", 
+#     description="Description area here",
+#     max_length=300,
+#     min_length=3,
+#     pattern="^[A-Za-z0-9]+$")
+#   price : float = Field(
+#     gt=0,
+#     title="product price",
+#     description="The price of the product in USD, be must be greater than zero")
+#   stock : int | None = Field(
+#     default=None,
+#     ge=0,
+#     title="product stock",
+#     description="The number of items in stock , must not be negative")
+  
+  
+# @app.post("/product")
+# async def create_product(product:Product  ):
+#   # return {"product": product}
+#   return product
+
+
+
+# Nested Body Models
+# Submodel 
+class Category(BaseModel):
+  name : str = Field(
+    title="Category Name",
+    description="The name of the product category",
+    max_length=50,
+    min_length=1
+  )
+  description : str = Field(
+    default=None,
+    title="Category Description",
+    description="a brief of the category",
+    max_length=200)
+
+# Base Model  
 class Product(BaseModel):
   name : str = Field(
-    titlt="this is product name", 
-    description="Description area here",
-    max_length=300,
-    min_length=3,
-    pattern="^[A-Za-z0-9]+$")
+    title="Product Name",
+    description="The name of the product",
+    max_length=100,
+    min_length=1)
   price : float = Field(
     gt=0,
-    title="product price",
-    description="The price of the product in USD, be must be greater than zero")
-  stock : int | None = Field(
-    default=None,
-    ge=0,
-    title="product stock",
-    description="The number of items in stock , must not be negative")
+    title="Product Price",
+    description="The price in USD, must be greater"
+  )
+  stock: int = Field(
+    default=None, ge=0,
+    description="Number of items in stock, must be non-negative"
+  )
+  
+  category : Category = Field(default=None,title="Product  Category", description="The category to which the product belongs" )
   
   
-@app.post("/product")
-async def create_product(product:Product ):
-  # return {"product": product}
-  return product
-
+  
+# @app.post("/products")
+# async def create_product(product : Product):
+#   return product
+  
   
