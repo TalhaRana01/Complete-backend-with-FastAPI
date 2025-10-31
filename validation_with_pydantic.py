@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Body
 from typing import Dict, Annotated
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 app = FastAPI(title= "Talha Rana Professional AI Engineer ")
@@ -109,14 +109,14 @@ app = FastAPI(title= "Talha Rana Professional AI Engineer ")
 
 
 #  Multiple Body Parameters
-class Product(BaseModel):
-  name : str
-  price : float
-  stock : int | None = None
+# class Product(BaseModel):
+#   name : str
+#   price : float
+#   stock : int | None = None
   
-class Seller(BaseModel):
-  username : str
-  full_name : str | None = None
+# class Seller(BaseModel):
+#   username : str
+#   full_name : str | None = None
   
   
 #  All body atrributes are required no optional 
@@ -150,7 +150,35 @@ class Seller(BaseModel):
 #   return product
 
 #  with embed body parameter
+# @app.post("/product")
+# async def create_product(product: Annotated[Product, Body(embed=True)] ):
+#   # return {"product": product}
+#   return product
+
+
+#  Pydantic Field
+
+class Product(BaseModel):
+  name : str = Field(
+    titlt="this is product name", 
+    description="Description area here",
+    max_length=300,
+    min_length=3,
+    pattern="^[A-Za-z0-9]+$")
+  price : float = Field(
+    gt=0,
+    title="product price",
+    description="The price of the product in USD, be must be greater than zero")
+  stock : int | None = Field(
+    default=None,
+    ge=0,
+    title="product stock",
+    description="The number of items in stock , must not be negative")
+  
+  
 @app.post("/product")
-async def create_product(product: Annotated[Product, Body(embed=True)] ):
+async def create_product(product:Product ):
   # return {"product": product}
   return product
+
+  
