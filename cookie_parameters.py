@@ -33,14 +33,39 @@ class ProductCookie(BaseModel):
   tracking_id : str | None = None
   
   
+# @app.get("/products/recommendations")
+# async def get_recommendations(cookies : Annotated[ProductCookie, Cookie()]):
+#   response = {"session_id" : cookies.session_id}
+  
+#   if cookies.prefered_category:
+#     response["message"] = f"Recommendations for {cookies.prefered_category} products"
+#   else:
+#     response["message"] = f"Default recommedations for session {cookies.session_id}"
+#   if cookies.tracking_id:
+#     response["traacking_id"] = cookies.tracking_id
+#   return response
+
+# -----------------------------
+# Forbidding Extra Cookies
+# -----------------------------
+
+
+class ProductCookie(BaseModel):
+  model_config = {"extra": "forbid"}
+  session_id: str
+  prefered_category : str | None = None
+  tracking_id : str | None = None
+  
+  
 @app.get("/products/recommendations")
-async def get_recommendations(cookie : Annotated[ProductCookie, Cookie()]):
-  response = {"session_id" : cookie.session_id}
-  if cookie.prefered_category:
-    response["message"] = f"Recommendations for {cookie.prefered_category} products"
+async def get_recommendations(cookies : Annotated[ProductCookie, Cookie()]):
+  response = {"session_id" : cookies.session_id}
+  
+  if cookies.prefered_category:
+    response["message"] = f"Recommendations for {cookies.prefered_category} products"
   else:
-    response["message"] = f"Default recommedations for session {cookie.session_id}"
-  if cookie.tracking_id:
-    response["message"] = cookie.tracking_id
+    response["message"] = f"Default recommedations for session {cookies.session_id}"
+  if cookies.tracking_id:
+    response["traacking_id"] = cookies.tracking_id
   return response
 
