@@ -103,6 +103,6 @@ async def get_recommendations(
   return response
 
 # curl -X POST -H "Content-Type: application/json" -H "Cookie: session_id=abc123; prefered_category=tech; tracking_id=xyz123" -d {\"price_filter\": {\"min_price\": 1000, \"max_price\": 5000}}" http://127.0.0.1:8000/products/recommendations
-
+# curl -X POST -H "Content-Type: application/json" -H "Cookie: session_id=abc123; prefered_category=tech; tracking_id=xyz123" -d "{\"price_filter\": {\"min_price\": 1000, \"max_price\": 5000}}" http://127.0.0.1:8000/products/recommendations
 
 
