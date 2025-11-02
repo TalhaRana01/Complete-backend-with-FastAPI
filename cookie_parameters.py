@@ -128,6 +128,11 @@ async def get_recommendations(
 # curl -H "Cookie: session_id=abc123; prefered_category=tech; tracking_id=xyz123" http://127.0.0.1:8000/products/recommendations
 
 
+# @app.get("/products")
+# async def get_products(user_agent: Annotated[str | None, Header() ] = None):
+#   return {"user_agent": user_agent}
+
+# Handling Duplicates Headers
 @app.get("/products")
-async def get_products(user_agent: Annotated[str | None, Header() ] = None):
-  return {"user_agent": user_agent}
+async def get_products(x_product_token: Annotated[list[str] | None, Header() ] = None):
+  return {"x_product_token": x_product_token or []}
