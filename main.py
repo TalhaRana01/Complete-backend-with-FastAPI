@@ -74,64 +74,24 @@ async def delete_product(new_update_product : Product, product_id: int):
   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
 
-# Get Method 
-
-# @app.get("/")
-# def home():
-#   return {"response" : "Home Page "}
-
-# # # Get all products
-# @app.get("/product")
-# def get_product():
-#   return {"message" : "Get All Products Method"}
-
-# Post Method
-
-# @app.post("/product/{product_id}")
-# def create_product(product_id : int, new_product : dict):
-#   return {"product id" :product_id, "product" : new_product}
-
-
-# @app.patch("/product/{product_id}")
-# async def partial_update_product(new_update_product : Product, product_id: int):
-#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
-
-
-# @app.put("/product/{product_id}")
-# async def update_product(new_update_product : Product, product_id: int):
-#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
-
-
-# @app.delete("/product/{product_id}")
-# async def delete_product(new_update_product : Product, product_id: int):
-#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
-
-
-### ------------------------------------------------------------------------------------------------------
-## Parameter with Type
-### ------------------------------------------------------------------------------------------------------
-
-
-
- 
-# @app.get("/product/{product_id}")
-# def get_single_product(product_id: int):
-#   return {"response" : "Single Product ID", "product_id" : product_id }
-
 
 ### ------------------------------------------------------------------------------------------------------
 ## Predefined Value
 ### ------------------------------------------------------------------------------------------------------
 
 
-# class ProductCategory(str, Enum):
-#   books = "Books"
-#   clothing = "Clothing"
-#   electronic = "Electronic"
+class ProductCategory(str, Enum):
+  books = "Books"
+  clothing = "Clothing"
+  electronic = "Electronic"
 
-# @app.get("/product/{category}")
-# async def get_product(category : ProductCategory):
-#   return {"response" : "Product Fetched", "category" : category}
+@app.get("/product/{category}")
+async def get_product(category : ProductCategory):
+  return {"response" : "Product Fetched", "category" : category}
+
+# Output 
+# http://127.0.0.1:8000/product/Electronic
+# http://127.0.0.1:8000/product/Clothing
 
 
 ### ------------------------------------------------------------------------------------------------------
