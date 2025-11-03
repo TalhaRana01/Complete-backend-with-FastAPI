@@ -35,17 +35,18 @@ async def all_product():
 
 ##  with Pydantic validation
 
-# class Product(BaseModel):
-#   name : str | None = None
-#   price : float
+class Product(BaseModel):
+  name : str | None = None
+  price : float
   
 
 # POST Request
 
-# Create a product
-# @app.post("/product", status_code=status.HTTP_201_CREATED)
-# async def create_product(new_product: dict):
-#   return {"message" : "Product is created", "product" : new_product}
+# Create a product and status code 201
+@app.post("/product", status_code=status.HTTP_201_CREATED)
+# dict data as a request body
+async def create_product(new_product: dict):
+  return {"message" : "Product is created", "product" : new_product}
 
 
 # Create a product with Pydantic BaseModel
