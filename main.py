@@ -80,19 +80,33 @@ async def delete_product(new_update_product : Product, product_id: int):
 ### ------------------------------------------------------------------------------------------------------
 
 
-class ProductCategory(str, Enum):
-  books = "Books"
-  clothing = "Clothing"
-  electronic = "Electronic"
+# class ProductCategory(str, Enum):
+#   books = "Books"
+#   clothing = "Clothing"
+#   electronic = "Electronic"
 
-@app.get("/product/{category}")
-async def get_product(category : ProductCategory):
-  return {"response" : "Product Fetched", "category" : category}
+# @app.get("/product/{category}")
+# async def get_product(category : ProductCategory):
+#   return {"response" : "Product Fetched", "category" : category}
 
 # Output 
 # http://127.0.0.1:8000/product/Electronic
 # http://127.0.0.1:8000/product/Clothing
 
+# Practie with Prefined Value with Enum
+
+class Tech(str, Enum):
+  python = "Python"
+  javascript = "JavaScript"
+  java = "Java"
+
+@app.get("/course/{course}")
+async def get_product(course : Tech):
+  return {"response" : "Product Fetched", "category" : course}
+
+# http://127.0.0.1:8000/course/Java
+# http://127.0.0.1:8000/course/JavaScript
+# http://127.0.0.1:8000/course/Python
 
 ### ------------------------------------------------------------------------------------------------------
 ## Working with python enumerations
