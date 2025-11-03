@@ -36,8 +36,10 @@ async def all_product():
 ##  with Pydantic validation
 
 class Product(BaseModel):
+  id : int
   name : str | None = None
   price : float
+  stock : int
   
 
 # POST Request
@@ -55,10 +57,10 @@ class Product(BaseModel):
 async def create_product(new_product: Product):
   return {"message" : "Product is created", "product" : new_product}
 
-
-# @app.put("/product/{product_id}")
-# async def update_product(new_update_product : Product | None = None , product_id: int | None = None ):
-#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+# Product update route
+@app.put("/products/{product_id}")
+async def update_product(new_update_product : Product | None = None , product_id: int | None = None ):
+  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
 # @app.patch("/product/{product_id}")
 # async def partial_update_product(new_update_product : Product, product_id: int):
