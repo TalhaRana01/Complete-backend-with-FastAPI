@@ -281,24 +281,24 @@ app = FastAPI(title= "Talha Rana Professional AI Engineer ")
 #   return product
 
 # Using json_schema_extra
-class Product(BaseModel):
-  name : str
-  price : float
-  stock : int | None = None 
+# class Product(BaseModel):
+#   name : str
+#   price : float
+#   stock : int | None = None 
   
-  model_config = {
-    "json_schema_extra" : {
-      "examples" : [
-        {
-          "name" : "product 1",
-          "price": 34.5,
-          "stcok": 45
+#   model_config = {
+#     "json_schema_extra" : {
+#       "examples" : [
+#         {
+#           "name" : "product 1",
+#           "price": 34.5,
+#           "stcok": 45
           
-        }
-      ]
-    }
-  }
+#         }
+#       ]
+#     }
+#   }
   
-@app.post("/products")
-async def create_product(product: Product):
-  return product
+# @app.post("/products")
+# async def create_product(product: Product):
+#   return product

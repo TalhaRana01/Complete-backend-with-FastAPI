@@ -9,9 +9,9 @@ app = FastAPI()
 
 
 
-# @app.get("/")
-# async def home():
-#   return {"message" : "Talha Rana"}
+@app.get("/")
+async def home():
+  return {"message" : "Talha Rana"}
 
 
 # ------------------------------------------------------------------------------------------------------
