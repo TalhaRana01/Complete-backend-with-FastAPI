@@ -95,14 +95,14 @@ async def delete_product(new_update_product : Product, product_id: int):
 
 # Practie with Prefined Value with Enum
 
-class Tech(str, Enum):
-  python = "Python"
-  javascript = "JavaScript"
-  java = "Java"
+# class Tech(str, Enum):
+#   python = "Python"
+#   javascript = "JavaScript"
+#   java = "Java"
 
-@app.get("/course/{course}")
-async def get_product(course : Tech):
-  return {"response" : "Product Fetched", "category" : course}
+# @app.get("/course/{course}")
+# async def get_product(course : Tech):
+#   return {"response" : "Product Fetched", "category" : course}
 
 # http://127.0.0.1:8000/course/Java
 # http://127.0.0.1:8000/course/JavaScript
@@ -129,6 +129,24 @@ async def get_product(course : Tech):
 #     return {"category" : category}
 #   else:
 #     return {"message" : "Unknow catgory"}
+
+
+class Course(str, Enum):
+  python = "Python"
+  digital_marketing = "Digital-marketing"
+  freelancing = "Freelancing"
+  
+@app.get("/course/{skill}")
+async def get_courses(skill: Course):
+  if skill == Course.python:
+    return {"message":"Suitable for you", "Course":  skill}
+  elif skill.value == Course.freelancing.value:
+    return {"message":"Suitable for you", "Course":  skill}
+  elif skill.value == "Digital-marketing":
+    return {"message":"Suitable for you", "Course":  skill}
+  else:
+    return {"message": "Unknow course"}
+  
 
 
 ### ------------------------------------------------------------------------------------------------------
