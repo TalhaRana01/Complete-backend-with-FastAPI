@@ -62,14 +62,16 @@ async def create_product(new_product: Product):
 async def update_product(new_update_product : Product | None = None , product_id: int | None = None ):
   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
-# @app.patch("/product/{product_id}")
-# async def partial_update_product(new_update_product : Product, product_id: int):
-#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
+# Product partial update route
+@app.patch("/products/{product_id}")
+async def partial_update_product(new_update_product : Product, product_id: int):
+  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
-# @app.delete("/product/{product_id}")
-# async def delete_product(new_update_product : Product, product_id: int):
-#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+#  Product Delete route
+@app.delete("/products/{product_id}")
+async def delete_product(new_update_product : Product, product_id: int):
+  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
 
 # Get Method 
