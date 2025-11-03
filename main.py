@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, Query, HTTPException, Path
+from fastapi import FastAPI, status, Query, HTTPException, Path, Field 
 from typing import List, Optional, Annotated
 from enum import Enum
 from pydantic import BaseModel, AfterValidator
@@ -43,17 +43,17 @@ class Product(BaseModel):
 # POST Request
 
 # Create a product and status code 201
-@app.post("/product", status_code=status.HTTP_201_CREATED)
-# dict data as a request body
-async def create_product(new_product: dict):
-  return {"message" : "Product is created", "product" : new_product}
+# @app.post("/product", status_code=status.HTTP_201_CREATED)
+# # dict data as a request body
+# async def create_product(new_product: dict):
+#   return {"message" : "Product is created", "product" : new_product}
 
 
 # Create a product with Pydantic BaseModel
-
-# @app.post("/product")
-# async def create_product(new_product: Product):
-#   return {"message" : "Product is created", "product" : new_product}
+# Pydantic data as a request body
+@app.post("/products")
+async def create_product(new_product: Product):
+  return {"message" : "Product is created", "product" : new_product}
 
 
 # @app.put("/product/{product_id}")
