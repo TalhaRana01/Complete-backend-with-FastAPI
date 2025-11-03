@@ -8,10 +8,10 @@ app = FastAPI()
 
 
 
-
-@app.get("/")
-async def home():
-  return {"message" : "Talha Rana"}
+#  Simple basic route
+# @app.get("/")
+# async def home():
+#   return {"message" : "Talha Rana"}
 
 
 # ------------------------------------------------------------------------------------------------------
@@ -21,22 +21,23 @@ async def home():
 # Get Request 
 ## Read or fetch All data
 
-# @app.get("/product")
-# async def all_product():
-#   return  {"message" : "All products list"}
+@app.get("/products")
+async def all_product():
+  return  {"message" : "All products list"}
+
 
 # GET Request 
+# Read single product by id
 
-## Read single product by id
-# @app.get("/product/{product_id}")
+# @app.get("/products/{product_id}")
 # async def product(product_id : int):
 #   return  {"message":"Product", "product ID" : product_id}
 
-## Pydantic 
+##  with Pydantic validation
 
-class Product(BaseModel):
-  name : str | None = None
-  price : float
+# class Product(BaseModel):
+#   name : str | None = None
+#   price : float
   
 
 # POST Request
@@ -635,19 +636,19 @@ PRODUCTS = [
 
 
 
-@app.get("/products/{product_id}")
-async def get_product(product_id: int, review: bool = False, rating: int = None):
-    """
-    - product_id -> Path parameter
-    - review, rating -> Query parameters
-    Example:
-      /products/10?review=true&rating=5
-    """
-    return {
-        "product_id": product_id,
-        "show_review": review,
-        "rating_filter": rating
-    }
+# @app.get("/products/{product_id}")
+# async def get_product(product_id: int, review: bool = False, rating: int = None):
+#     """
+#     - product_id -> Path parameter
+#     - review, rating -> Query parameters
+#     Example:
+#       /products/10?review=true&rating=5
+#     """
+#     return {
+#         "product_id": product_id,
+#         "show_review": review,
+#         "rating_filter": rating
+#     }
 
 
 #  Combining Path and Query Parameters 

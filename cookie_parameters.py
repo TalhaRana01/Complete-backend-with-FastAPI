@@ -27,10 +27,10 @@ app = FastAPI()
 # Muitiple Cookie Parameters
 # ------------------------------------
 
-class ProductCookie(BaseModel):
-  session_id: str
-  prefered_category : str | None = None
-  tracking_id : str | None = None
+# class ProductCookie(BaseModel):
+#   session_id: str
+#   prefered_category : str | None = None
+#   tracking_id : str | None = None
   
   
 # @app.get("/products/recommendations")
@@ -73,34 +73,34 @@ class ProductCookie(BaseModel):
 # Combining with body Parameters
 # -----------------------------
 
-class ProductCookie(BaseModel):
-  model_config = {"extra": "forbid"}
-  session_id: str = Field(title="Session ID", description="User session Identifier")
-  prefered_category : str | None = Field(title="Prefered Category", description="User's prefered product category")
-  tracking_id : str | None = None
+# class ProductCookie(BaseModel):
+#   model_config = {"extra": "forbid"}
+#   session_id: str = Field(title="Session ID", description="User session Identifier")
+#   prefered_category : str | None = Field(title="Prefered Category", description="User's prefered product category")
+#   tracking_id : str | None = None
   
   
-class PriceFilter(BaseModel):
-  min_price : float = Field(ge=0, title="Minimum Price", description="Minimum price for recommendations")
-  max_price : float | None  = Field(default=None, title="Miximum Price", description="Miximum price for recommendations")
+# class PriceFilter(BaseModel):
+#   min_price : float = Field(ge=0, title="Minimum Price", description="Minimum price for recommendations")
+#   max_price : float | None  = Field(default=None, title="Miximum Price", description="Miximum price for recommendations")
   
   
-@app.post("/products/recommendations")
-async def get_recommendations(
-  cookies : Annotated[ProductCookie,
-  Cookie()], 
-  price_filter: Annotated[PriceFilter, Body(embed=True)] ):
+# @app.post("/products/recommendations")
+# async def get_recommendations(
+#   cookies : Annotated[ProductCookie,
+#   Cookie()], 
+#   price_filter: Annotated[PriceFilter, Body(embed=True)] ):
   
-  response = {"session_id" : cookies.session_id}
+#   response = {"session_id" : cookies.session_id}
   
-  if cookies.prefered_category:
-    response["category"] = cookies.prefered_category
-  response["price_range"] = {
-      "min_price": price_filter.min_price,
-      "max_price" : price_filter.max_price
-    }
+#   if cookies.prefered_category:
+#     response["category"] = cookies.prefered_category
+#   response["price_range"] = {
+#       "min_price": price_filter.min_price,
+#       "max_price" : price_filter.max_price
+#     }
   
-  return response
+#   return response
 
 # curl -X POST -H "Content-Type: application/json" -H "Cookie: session_id=abc123; prefered_category=tech; tracking_id=xyz123" -d {\"price_filter\": {\"min_price\": 1000, \"max_price\": 5000}}" http://127.0.0.1:8000/products/recommendations
 # curl -X POST -H "Content-Type: application/json" -H "Cookie: session_id=abc123; prefered_category=tech; tracking_id=xyz123" -d "{\"price_filter\": {\"min_price\": 1000, \"max_price\": 5000}}" http://127.0.0.1:8000/products/recommendations
@@ -133,6 +133,6 @@ async def get_recommendations(
 #   return {"user_agent": user_agent}
 
 # Handling Duplicates Headers
-@app.get("/products")
-async def get_products(x_product_token: Annotated[list[str] | None, Header() ] = None):
-  return {"x_product_token": x_product_token or []}
+# @app.get("/products")
+# async def get_products(x_product_token: Annotated[list[str] | None, Header() ] = None):
+#   return {"x_product_token": x_product_token or []}
