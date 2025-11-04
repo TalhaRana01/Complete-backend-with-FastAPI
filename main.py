@@ -607,22 +607,22 @@ PRODUCTS = [
 
 # Custom Validation 
 #  import  AfterValidator from Pydantic Model
-# def check_valid_id(id : str):
-#   """agr koi product id search nhi krta ha 
-#       dash ky sath
-#   """
-#   if not id.startswith("prod-"):
-#     # to ya error den ge
-#     raise ValueError("ID must be start with 'prod-")
-#   return id
+def check_valid_id(id : str):
+  """agr koi product id search nhi krta ha 
+      dash ky sath
+  """
+  if not id.startswith("prod-"):
+    # to ya error den ge
+    raise ValueError("ID must be start with 'prod-")
+  return id
 
-# @app.get("/products")
-# async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ] = None):
-#   """Es function main hum ny check_valid_id function ko call kia ha AfterValidator main"""
+@app.get("/products")
+async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ] = None):
+  """Es function main hum ny check_valid_id function ko call kia ha AfterValidator main"""
   
-#   if id:
-#     return {"id": id, "message": "Valid product ID"}
-#   return {"message": "No ID provided"}
+  if id:
+    return {"id": id, "message": "Valid product ID"}
+  return {"message": "No ID provided"}
 
 
 
