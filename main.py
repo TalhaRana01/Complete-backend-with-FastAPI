@@ -688,21 +688,21 @@ PRODUCTS = [
 # Combining Path and Query Parameters 
 # import  Query and Path parameter
     
-@app.get("/products/{id}")
-async def get_product(
-  # Path numeric id Validation
-  id : Annotated[int  | None , Path(gt=0, le=100, description="Enter your Product ID")], 
-  # Query search product name validation
-  search: Annotated[str | None, Query(alias="q", max_length=20, description="Search your product ")] = None):
+# @app.get("/products/{id}")
+# async def get_product(
+#   # Path numeric id Validation
+#   id : Annotated[int  | None , Path(gt=0, le=100, description="Enter your Product ID")], 
+#   # Query search product name validation
+#   search: Annotated[str | None, Query(alias="q", max_length=20, description="Search your product ")] = None):
   
-  # id : Annotated[int , Path(gt=0, le=100)], search: Annotated[str | None, Query(alias="q", max_length=20)] = None)
-  #  product ki 1 or search query match honi chahye 
-  for product in PRODUCTS:
-    if product["product_id"] == id:
-      if search and search.lower() not in product["product_name"].lower():
-        return {"error": "Product does not match search term."}
-      return product
-  raise HTTPException(status_code=404, detail="Product not found")
+#   # id : Annotated[int , Path(gt=0, le=100)], search: Annotated[str | None, Query(alias="q", max_length=20)] = None)
+#   #  product ki 1 or search query match honi chahye 
+#   for product in PRODUCTS:
+#     if product["product_id"] == id:
+#       if search and search.lower() not in product["product_name"].lower():
+#         return {"error": "Product does not match search term."}
+#       return product
+#   raise HTTPException(status_code=404, detail="Product not found")
 
 # http://127.0.0.1:8000/products/1?q=turbo
 # http://127.0.0.1:8000/products/2?q=cream
