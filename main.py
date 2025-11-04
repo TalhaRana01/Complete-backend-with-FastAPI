@@ -524,18 +524,18 @@ PRODUCTS = [
 # Annotated method import krain ge typing module sy
 # Validation with Annotated
 
-@app.get("/products")
-async def products(search: Annotated[str | None, Query(max_length=10) ] = None):
+# @app.get("/products")
+# async def products(search: Annotated[str | None, Query(max_length=10) ] = None):
   
-  if search:
-    serach_lower = search.lower()
-    filtered_product = []
-    for product in PRODUCTS:
-      if serach_lower in product["product_name"].lower():
-        filtered_product.append(product)
+#   if search:
+#     serach_lower = search.lower()
+#     filtered_product = []
+#     for product in PRODUCTS:
+#       if serach_lower in product["product_name"].lower():
+#         filtered_product.append(product)
        
-    return filtered_product
-  return PRODUCTS    
+#     return filtered_product
+#   return PRODUCTS    
 
 
 # Why use Annotated ?
@@ -561,25 +561,8 @@ async def products(search: Annotated[str | None, Query(max_length=10) ] = None):
 
 #  Multiple Search Terms ( List)
 
-@app.get("/products")
-async def get_products(search : Annotated[list[str] | None, Query()] = None):
-  
-  if search:
-    filtered_product = []
-    for product in PRODUCTS:
-      for s in search:
-        if s.lower() in product["product_name"].lower():
-          filtered_product.append(product)
-    return filtered_product
-  return PRODUCTS
-
-
-
-
-# Alias parameters Query(alias="q")
-
 # @app.get("/products")
-# async def get_products(search: Annotated[list[str] | None, Query(alias="q")] = None):
+# async def get_products(search : Annotated[list[str] | None, Query(description="Search your query", max_length=10)] = None):
   
 #   if search:
 #     filtered_product = []
@@ -589,6 +572,24 @@ async def get_products(search : Annotated[list[str] | None, Query()] = None):
 #           filtered_product.append(product)
 #     return filtered_product
 #   return PRODUCTS
+
+
+
+
+# Alias parameters Query(alias="q")
+
+@app.get("/products")
+async def get_products(search: Annotated[list[str] | None, Query(alias="q" ,description="Search your query here.")] = None):
+  
+  print("Query received:", search)
+  if search:
+    filtered_product = []
+    for product in PRODUCTS:
+        for s in search:
+           if s.lower() in product["product_name"].lower():
+              filtered_product.append(product)
+    return filtered_product
+  return PRODUCTS
 
 # Adding Metadata
 # @app.get("/products")
