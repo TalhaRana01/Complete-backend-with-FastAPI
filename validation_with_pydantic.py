@@ -273,34 +273,34 @@ class Seller(BaseModel):
 
 # Using Field-level Example
 
-# class Product(BaseModel):
-#   name: str = Field(examples=["headphone"])
-#   price : float = Field(examples=[2000])
-#   stock : int | None = Field(default=None, examples=[10])
-  
-# @app.post("/products")
-# async def create_product(product: Product):
-#   return product
-
-# Using json_schema_extra
 class Product(BaseModel):
-  name : str
-  price : float
-  stock : int | None = None 
-  
-  model_config = {
-    "json_schema_extra" : {
-      "examples" : [
-        {
-          "name" : "product 1",
-          "price": 34.5,
-          "stcok": 45
-          
-        }
-      ]
-    }
-  }
+  name: str = Field(examples=["headphone"])
+  price : float = Field(examples=[2000])
+  stock : int | None = Field(default=None, examples=[10])
   
 @app.post("/products")
 async def create_product(product: Product):
   return product
+
+# Using json_schema_extra
+# class Product(BaseModel):
+#   name : str
+#   price : float
+#   stock : int | None = None 
+  
+#   model_config = {
+#     "json_schema_extra" : {
+#       "examples" : [
+#         {
+#           "name" : "product 1",
+#           "price": 34.5,
+#           "stcok": 45
+          
+#         }
+#       ]
+#     }
+#   }
+  
+# @app.post("/products")
+# async def create_product(product: Product):
+#   return product
