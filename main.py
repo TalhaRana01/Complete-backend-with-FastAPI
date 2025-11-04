@@ -21,9 +21,9 @@ app = FastAPI()
 # Get Request 
 ## Read or fetch All data
 
-@app.get("/products")
-async def all_product():
-  return  {"message" : "All products list"}
+# @app.get("/products")
+# async def all_product():
+#   return  {"message" : "All products list"}
 
 
 # GET Request 
@@ -53,25 +53,25 @@ class Product(BaseModel):
 
 # Create a product with Pydantic BaseModel
 # Pydantic data as a request body
-@app.post("/products", status_code=status.HTTP_201_CREATED)
-async def create_product(new_product: Product):
-  return {"message" : "Product is created", "product" : new_product}
+# @app.post("/products", status_code=status.HTTP_201_CREATED)
+# async def create_product(new_product: Product):
+#   return {"message" : "Product is created", "product" : new_product}
 
-# Product update route
-@app.put("/products/{product_id}")
-async def update_product(new_update_product : Product | None = None , product_id: int | None = None ):
-  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+# # Product update route
+# @app.put("/products/{product_id}")
+# async def update_product(new_update_product : Product | None = None , product_id: int | None = None ):
+#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
 
-# Product partial update route
-@app.patch("/products/{product_id}")
-async def partial_update_product(new_update_product : Product, product_id: int):
-  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+# # Product partial update route
+# @app.patch("/products/{product_id}")
+# async def partial_update_product(new_update_product : Product, product_id: int):
+#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
-#  Product Delete route 
-@app.delete("/products/{product_id}")
-async def delete_product(new_update_product : Product, product_id: int):
-  return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
+# #  Product Delete route 
+# @app.delete("/products/{product_id}")
+# async def delete_product(new_update_product : Product, product_id: int):
+#   return {"message" : "Product updated successfully", "product Id" : product_id, "product" : new_update_product}
 
 
 
@@ -131,21 +131,21 @@ async def delete_product(new_update_product : Product, product_id: int):
 #     return {"message" : "Unknow catgory"}
 
 
-class Course(str, Enum):
-  python = "Python"
-  digital_marketing = "Digital-marketing"
-  freelancing = "Freelancing"
+# class Course(str, Enum):
+#   python = "Python"
+#   digital_marketing = "Digital-marketing"
+#   freelancing = "Freelancing"
   
-@app.get("/course/{skill}")
-async def get_courses(skill: Course):
-  if skill == Course.python:
-    return {"message":"Suitable for you", "Course":  skill}
-  elif skill.value == Course.freelancing.value:
-    return {"message":"Suitable for you", "Course":  skill}
-  elif skill.value == "Digital-marketing":
-    return {"message":"Suitable for you", "Course":  skill}
-  else:
-    return {"message": "Unknow course"}
+# @app.get("/course/{skill}")
+# async def get_courses(skill: Course):
+#   if skill == Course.python:
+#     return {"message":"Suitable for you", "Course":  skill}
+#   elif skill.value == Course.freelancing.value:
+#     return {"message":"Suitable for you", "Course":  skill}
+#   elif skill.value == "Digital-marketing":
+#     return {"message":"Suitable for you", "Course":  skill}
+#   else:
+#     return {"message": "Unknow course"}
   
 
 
@@ -155,7 +155,7 @@ async def get_courses(skill: Course):
 
 PRODUCTS = [
   {
-    "product_id": "FKP1001",
+    "product_id": 1,
     "product_name": "Turbo-Clean All-in-One Detergent",
     "category": "Household Goods",
     "price": 19.99,
@@ -163,7 +163,7 @@ PRODUCTS = [
     "description": "The revolutionary cleaner that promises to remove any stain instantly. Contains 'secret formula X.' (Warning: May leave a sticky residue.)"
   },
   {
-    "product_id": "FKP1002",
+    "product_id": 2,
     "product_name": "Eternal Youth Face Cream",
     "category": "Cosmetics",
     "price": 89.50,
@@ -171,7 +171,7 @@ PRODUCTS = [
     "description": "Instantly reduces the appearance of wrinkles by 100%. Side effects may include temporary, minor itching. Sold as a novelty item."
   },
   {
-    "product_id": "FKP1003",
+    "product_id": 3,
     "product_name": "Ultra-Power USB-C Cable (10ft)",
     "category": "Electronics",
     "price": 5.99,
@@ -179,7 +179,7 @@ PRODUCTS = [
     "description": "Guaranteed to charge your device 50% faster. Known to fail after three uses."
   },
   {
-    "product_id": "FKP1004",
+    "product_id": 4,
     "product_name": "Organic Gluten-Free Water",
     "category": "Food & Drink",
     "price": 3.49,
@@ -187,7 +187,7 @@ PRODUCTS = [
     "description": "The purest, most natural water, now with a 'certified organic' sticker. Tastes exactly like regular tap water."
   },
   {
-    "product_id": "FKP1005",
+    "product_id": 5,
     "product_name": "Invisible Wireless Headphones",
     "category": "Electronics",
     "price": 199.00,
@@ -197,49 +197,51 @@ PRODUCTS = [
 ]
 
 
+
 # Get all products
-# @app.get("/products", status_code=status.HTTP_200_OK)
-# async def all_products():
-#   return {"message" : PRODUCTS}
+@app.get("/products", status_code=status.HTTP_200_OK)
+async def all_products():
+  return {"message" : PRODUCTS}
 
 
 # # Get Single Product
-# @app.get("/products/{product_id}", status_code=status.HTTP_200_OK)
-# async def get_single_product(product_id):
-#   for product in PRODUCTS:
-#     if product['product_id'] == product_id:
-#       return product
+@app.get("/products/{product_id}", status_code=status.HTTP_200_OK)
+async def get_single_product(product_id : int):
+  for product in PRODUCTS:
+    if product['product_id'] == product_id:
+      return {"product": product}
+  raise HTTPException(status_code=404, detail="product not found")
 
 # # Create product  
-# @app.post("/products/", status_code=status.HTTP_201_CREATED)
-# async def create_product(new_product: dict):
-#   PRODUCTS.append(new_product)
-#   return {"response" : "Product created ", "new_product": new_product}
+@app.post("/products/", status_code=status.HTTP_201_CREATED)
+async def create_product(new_product: dict):
+  PRODUCTS.append(new_product)
+  return {"response" : "Product created ", "new_product": new_product}
 
-
-# @app.put("/products/{product_id}")
-# async def update_product(product_id, update_product: dict):
-#   for index, product in enumerate(PRODUCTS):
-#     if product['product_id'] == product_id:
-#       PRODUCTS[index] = update_product
-#       return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+# Update product
+@app.put("/products/{product_id}")
+async def update_product(product_id, update_product: dict):
+  for index, product in enumerate(PRODUCTS):
+    if product['product_id'] == product_id:
+      PRODUCTS[index] = update_product
+      return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
       
     
 
 
-# @app.patch("/products/{product_id}")
-# async def partial_update_product(product_id, update_product: dict):
-#   for index, product in enumerate(PRODUCTS):
-#     if product['product_id'] == product_id:
-#       PRODUCTS[index] = update_product
-#       return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+@app.patch("/products/{product_id}")
+async def partial_update_product(product_id, update_product: dict):
+  for index, product in enumerate(PRODUCTS):
+    if product['product_id'] == product_id:
+      PRODUCTS[index] = update_product
+      return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
 
-# @app.delete("/products/{product_id}")
-# async def delete_product(product_id,):
-#   for index, product in enumerate(PRODUCTS):
-#     if product['product_id'] == product_id:
-#       PRODUCTS.pop(index)
-#       return { "message" : " Product deleted", "deleted_product": delete_product}
+@app.delete("/products/{product_id}")
+async def delete_product(product_id,):
+  for index, product in enumerate(PRODUCTS):
+    if product['product_id'] == product_id:
+      PRODUCTS.pop(index)
+      return { "message" : " Product deleted", "deleted_product": delete_product}
   
   
   
