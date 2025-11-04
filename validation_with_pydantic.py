@@ -87,16 +87,16 @@ class Product(BaseModel):
   
   
   # Add new calculated Attribute
-@app.post("/products")
-async def create_product(new_product: Product):
-    # ✅ Use dict() for compatibility with older FastAPI/Pydantic
-    product_dict = new_product.model_dump()
-    price_with_tax = new_product.price + (new_product.price * 18 / 100)
-    product_dict.update({"price_with_tax": price_with_tax})
-    return product_dict
+# @app.post("/products")
+# async def create_product(new_product: Product):
+#     # ✅ Use dict() for compatibility with older FastAPI/Pydantic
+#     product_dict = new_product.model_dump()
+#     price_with_tax = new_product.price + (new_product.price * 18 / 100)
+#     product_dict.update({"price_with_tax": price_with_tax})
+#     return product_dict
   
   
-#  Combineing Request Body with Path Parameters
+#  Combining Request Body with Path Parameters
 # @app.put("/product/{product_id}")
 # async def update_product(product_id: int, new_update_product: Product):
 #   return {"product_id" : product_id, "new_updated_product" : new_update_product}
@@ -107,22 +107,24 @@ async def create_product(new_product: Product):
 # async def update_product(product_id: int, new_update_product: Product, discount : float | None = None):
 #   return {"product_id" : product_id, "new_updated_product" : new_update_product, "discount": discount}
 
+# http://127.0.0.1:8000/product/1?discount=50
+
 
 #  Multiple Body Parameters
-# class Product(BaseModel):
-#   name : str
-#   price : float
-#   stock : int | None = None
+class Product(BaseModel):
+  name : str
+  price : float
+  stock : int | None = None
   
-# class Seller(BaseModel):
-#   username : str
-#   full_name : str | None = None
+class Seller(BaseModel):
+  username : str
+  full_name : str | None = None
   
   
-#  All body atrributes are required no optional 
-# @app.post("/product")
-# async def create_product(product: Product, seller : Seller):
-#   return {"product": product, "seller" : seller}
+#  All request body atrributes are required no optional 
+@app.post("/product")
+async def create_product(product: Product, seller : Seller):
+  return {"product": product, "seller" : seller}
 
 #  Only product attributes are required and seller attributes are optional
 # @app.post("/product")
