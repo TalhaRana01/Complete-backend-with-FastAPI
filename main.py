@@ -691,9 +691,9 @@ PRODUCTS = [
 @app.get("/products/{id}")
 async def get_product(
   # Path numeric id Validation
-  id : Annotated[int , Path(gt=0, le=100)], 
+  id : Annotated[int  | None , Path(gt=0, le=100, description="Enter your Product ID")], 
   # Query search product name validation
-  search: Annotated[str | None, Query(alias="q", max_length=20)] = None):
+  search: Annotated[str | None, Query(alias="q", max_length=20, description="Search your product ")] = None):
   
   # id : Annotated[int , Path(gt=0, le=100)], search: Annotated[str | None, Query(alias="q", max_length=20)] = None)
   #  product ki 1 or search query match honi chahye 
