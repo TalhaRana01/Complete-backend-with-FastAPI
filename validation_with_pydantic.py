@@ -163,36 +163,24 @@ class Seller(BaseModel):
 }"""
 
 ##  with embed body parameter
-@app.post("/product")
-async def create_product(product: Annotated[Product, Body(embed=True)] ):
-  # return {"product": product}
-  return product
-
-
-#  Pydantic Field
-
-# class Product(BaseModel):
-#   name : str = Field(
-#     titlt="this is product name", 
-#     description="Description area here",
-#     max_length=300,
-#     min_length=3,
-#     pattern="^[A-Za-z0-9]+$")
-#   price : float = Field(
-#     gt=0,
-#     title="product price",
-#     description="The price of the product in USD, be must be greater than zero")
-#   stock : int | None = Field(
-#     default=None,
-#     ge=0,
-#     title="product stock",
-#     description="The number of items in stock , must not be negative")
-  
-  
 # @app.post("/product")
-# async def create_product(product:Product  ):
+# async def create_product(product: Annotated[Product, Body(embed=True)] ):
 #   # return {"product": product}
 #   return product
+
+
+##  Pydantic Field
+
+class Product(BaseModel):
+  name : str = Field(titlt="this is product name", description="Description area here", max_length=300, min_length=3, pattern="^[A-Za-z0-9]+$")
+  price : float = Field(gt=0, title="product price", description="The price of the product in USD, be must be greater than zero")
+  stock : int | None = Field(default=None, ge=0, title="product stock", description="The number of items in stock , must not be negative")
+  
+  
+@app.post("/product")
+async def create_product(product:Product  ):
+  # return {"product": product}
+  return product
 
 
 
