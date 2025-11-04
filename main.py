@@ -199,9 +199,9 @@ PRODUCTS = [
 
 
 # Get all products
-@app.get("/products", status_code=status.HTTP_200_OK)
-async def all_products():
-  return {"message" : PRODUCTS}
+# @app.get("/products", status_code=status.HTTP_200_OK)
+# async def all_products():
+#   return {"message" : PRODUCTS}
 
 
 # # Get Single Product
@@ -213,35 +213,35 @@ async def all_products():
 #   raise HTTPException(status_code=404, detail="product not found")
 
 # # Create product  
-@app.post("/products/", status_code=status.HTTP_201_CREATED)
-async def create_product(new_product: dict):
-  PRODUCTS.append(new_product)
-  return {"response" : "Product created ", "new_product": new_product}
+# @app.post("/products/", status_code=status.HTTP_201_CREATED)
+# async def create_product(new_product: dict):
+#   PRODUCTS.append(new_product)
+#   return {"response" : "Product created ", "new_product": new_product}
 
-# Update product
-@app.put("/products/{product_id}", status_code=status.HTTP_200_OK)
-async def update_product(product_id, update_product: dict):
-  for index, product in enumerate(PRODUCTS):
-    if product['product_id'] == product_id:
-      PRODUCTS[index] = update_product
-      return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+# # Update product
+# @app.put("/products/{product_id}", status_code=status.HTTP_200_OK)
+# async def update_product(product_id, update_product: dict):
+#   for index, product in enumerate(PRODUCTS):
+#     if product['product_id'] == product_id:
+#       PRODUCTS[index] = update_product
+#       return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
       
     
 
 
-@app.patch("/products/{product_id}")
-async def partial_update_product(product_id, update_product: dict):
-  for index, product in enumerate(PRODUCTS):
-    if product['product_id'] == product_id:
-      PRODUCTS[index] = update_product
-      return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
+# @app.patch("/products/{product_id}")
+# async def partial_update_product(product_id, update_product: dict):
+#   for index, product in enumerate(PRODUCTS):
+#     if product['product_id'] == product_id:
+#       PRODUCTS[index] = update_product
+#       return {"response" : "Product updated", "product_id": product_id, "update_product" : update_product}
 
-@app.delete("/products/{product_id}")
-async def delete_product(product_id,):
-  for index, product in enumerate(PRODUCTS):
-    if product['product_id'] == product_id:
-      PRODUCTS.pop(index)
-      return { "message" : " Product deleted", "deleted_product": delete_product}
+# @app.delete("/products/{product_id}")
+# async def delete_product(product_id,):
+#   for index, product in enumerate(PRODUCTS):
+#     if product['product_id'] == product_id:
+#       PRODUCTS.pop(index)
+#       return { "message" : " Product deleted", "deleted_product": delete_product}
   
   
   
@@ -254,9 +254,9 @@ async def delete_product(product_id,):
 ## Single Query Parameters
 ### ------------------------------------------------------------------------------------------------------
 
-# @app.get("/product")
-# async def product(category:str):
-#   return {"status" : "OK", "lan" : category}
+# @app.get("/products")
+# async def product(search:str):
+#   return {"status" : "OK", "lan" : search}
 
 # @app.get("/product")
 # async def product(en:str):
