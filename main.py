@@ -607,22 +607,22 @@ PRODUCTS = [
 
 # Custom Validation 
 #  import  AfterValidator from Pydantic Model
-def check_valid_id(id : str):
-  """agr koi product id search nhi krta ha 
-      dash ky sath
-  """
-  if not id.startswith("prod-"):
-    # to ya error den ge
-    raise ValueError("ID must be start with 'prod-")
-  return id
+# def check_valid_id(id : str):
+#   """agr koi product id search nhi krta ha 
+#       dash ky sath
+#   """
+#   if not id.startswith("prod-"):
+#     # to ya error den ge
+#     raise ValueError("ID must be start with 'prod-")
+#   return id
 
-@app.get("/products")
-async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ] = None):
-  """Es function main hum ny check_valid_id function ko call kia ha AfterValidator main"""
+# @app.get("/products")
+# async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ] = None):
+#   """Es function main hum ny check_valid_id function ko call kia ha AfterValidator main"""
   
-  if id:
-    return {"id": id, "message": "Valid product ID"}
-  return {"message": "No ID provided"}
+#   if id:
+#     return {"id": id, "message": "Valid product ID"}
+#   return {"message": "No ID provided"}
 
 
 
@@ -632,23 +632,25 @@ async def get_products(id: Annotated[str | None,AfterValidator(check_valid_id) ]
 
 #  Basic Path Parameter
 
+# from fastapi import HTTPException
+
 # @app.get("/products/{id}")
 # async def get_product(id: int):
-#   for product in PRODUCTS:
-#     if product["product_id"] == id:
-#       return product
-#   # return {"error":"Product not found"}
+#     for product in PRODUCTS:
+#         if product["product_id"] == id:
+#             return product
 #     raise HTTPException(status_code=404, detail="Product ID not found")
 
 
-# Numeric Validation
-# @app.get("/products/{id}")
-# async def get_product(id: Annotated[int, Path(gt=0)]):
-#   for product in PRODUCTS:
-#     if product["product_id"] == id:
-#       return product
-#   # return {"error":"Product not found"}
-#   raise HTTPException(status_code=404, detail="Product ID not found")
+
+## Numeric Validation must be non-zero or non-negative
+@app.get("/products/{id}")
+async def get_product(id: Annotated[int | None, Path(gt=0)]):
+  for product in PRODUCTS:
+    if product["product_id"] == id:
+      return product
+  # return {"error":"Product not found"}
+  raise HTTPException(status_code=422, detail="Product ID not found")
 
 
 # Add Metadata with Path
