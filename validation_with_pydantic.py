@@ -121,15 +121,15 @@ class Seller(BaseModel):
   full_name : str | None = None
   
   
-#  All request body atrributes are required no optional 
-@app.post("/product")
-async def create_product(product: Product, seller : Seller):
-  return {"product": product, "seller" : seller}
-
-#  Only product attributes are required and seller attributes are optional
+# #  All request body atrributes are required no optional 
 # @app.post("/product")
-# async def create_product(product: Product, seller : Seller | None = None ):
+# async def create_product(product: Product, seller : Seller):
 #   return {"product": product, "seller" : seller}
+
+# Only product attributes are required and seller attributes are optional
+@app.post("/product")
+async def create_product(product: Product, seller : Seller | None = None ):
+  return {"product": product, "seller" : seller}
 
 #  Singular values in body
 # @app.post("/product")
