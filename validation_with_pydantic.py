@@ -127,19 +127,24 @@ class Seller(BaseModel):
 #   return {"product": product, "seller" : seller}
 
 # Only product attributes are required and seller attributes are optional
-@app.post("/product")
-async def create_product(product: Product, seller : Seller | None = None ):
-  return {"product": product, "seller" : seller}
+# @app.post("/product")
+# async def create_product(product: Product, seller : Seller | None = None  ):
+#   return {"product": product, "seller" : seller}
+# @app.post("/product")
+# async def create_product(product: Product, seller : str = Body()  ):
+#   return {"product": product, "seller" : seller}
+
 
 ##  Singular values in body
 ##  Product ka data JSON format main aye ga request body sy 
 ##  Seller ka data JSON format main aye ga request body sy 
-##  Secret Key ka data string format main aye ga request body sy 
-@app.post("/product")
-async def create_product(product: Product, seller : Seller, secret_key : Annotated[str, Body()] 
-  ):
+##  Secret Key ka data single string format main aye ga request body sy 
+##  Normally FastAPI single values ko query parameters samajhta hai. agr Body Parameter na lagaye to
+# @app.post("/product")
+# async def create_product(product: Product, seller : Seller, secret_key : Annotated[str, Body()] 
+#   ):
   
-  return {"product": product, "seller" : seller, "secret_key": secret_key}
+#   return {"product": product, "seller" : seller, "secret_key": secret_key}
 
 
 
@@ -151,11 +156,17 @@ async def create_product(product: Product, seller : Seller, secret_key : Annotat
 #   # return {"product": product}
 #   return product
 
-#  with embed body parameter
-# @app.post("/product")
-# async def create_product(product: Annotated[Product, Body(embed=True)] ):
-#   # return {"product": product}
-#   return product
+"""{
+  "name": "string",
+  "price": 0,
+  "stock": 0
+}"""
+
+##  with embed body parameter
+@app.post("/product")
+async def create_product(product: Annotated[Product, Body(embed=True)] ):
+  # return {"product": product}
+  return product
 
 
 #  Pydantic Field
