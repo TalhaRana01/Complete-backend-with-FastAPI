@@ -311,9 +311,11 @@ PRODUCTS = [
 # age required
 #  email optional
 # seat  default value 10
-@app.get("/student")
-async def student_query(skill:str, name:str, age:int, email: str | None = None , seats: int = 20):
-  return {"skill": skill, "name": name, "age": age, "email": email, "seats": seats}
+# @app.get("/student/{student_id}")
+# async def student_query(student_id: int, skill:str, name:str, age:int, email: str | None = None , seats: int = 20):
+#   return {"student_id": student_id, "skill": skill, "name": name, "age": age, "email": email, "seats": seats}
+
+# http://127.0.0.1:8000/student/1?skill=python&name=talharana&age=30
 
 
 ### ------------------------------------------------------------------------------------------------------
@@ -338,9 +340,9 @@ async def student_query(skill:str, name:str, age:int, email: str | None = None ,
 
 
 # Path and Query Parameters
-# @app.get("/product/{year}")
-# async def product(year: str, category : str, limit: int) :
-#   return {"status": "OK", "category" : category, "year" : year, "limit": limit}
+@app.get("/product/{year}")
+async def product(year: str, category : str, limit: int) :
+  return {"status": "OK", "category" : category, "year" : year, "limit": limit}
 
 # @app.get("/product/{year}")
 # async def product(year: str, category : str | None = None, limit: int = 10) :
