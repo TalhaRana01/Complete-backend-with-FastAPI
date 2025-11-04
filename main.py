@@ -266,9 +266,19 @@ PRODUCTS = [
 # async def product(q:str):
 #   return {"status" : "OK", "lan" : q}
 
+# @app.get("/products")
+# def get_search(search : str):
+#   return search
+# # print(get_search())
+
 
   
+#  Password parameter is optional in query parameter 
+# @app.get("/user")
+# async def user_created(name: str, username: str, email: str, password: str | None = None):
+#   return {"message" : "Account created", "your_name": name, "username":username, "your_email": email, "password": password }
 
+# Validate Password Query 
 # @app.get("/user")
 # async def user_created(name: str, username: str, email: str, password: Annotated[str, Query(max_length=10)]):
 #   return {"message" : "Account created", "your_name": name, "username":username, "your_email": email, "password": password }
@@ -276,8 +286,8 @@ PRODUCTS = [
 
 
 # @app.get("/course")
-# async def course(course: str):
-#   return {"course" : course}
+# async def course(course: str, age: int, email:str, phone: str):
+#   return {"course" : f"{course, age, email, phone}"}
 
 
 ### ------------------------------------------------------------------------------------------------------
