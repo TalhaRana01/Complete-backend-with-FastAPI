@@ -131,15 +131,15 @@ class Seller(BaseModel):
 async def create_product(product: Product, seller : Seller | None = None ):
   return {"product": product, "seller" : seller}
 
-#  Singular values in body
-# @app.post("/product")
-# async def create_product(
-#   product: Product, 
-#   seller : Seller,
-#   secret_key : Annotated[str, Body()] 
-#   ):
+##  Singular values in body
+##  Product ka data JSON format main aye ga request body sy 
+##  Seller ka data JSON format main aye ga request body sy 
+##  Secret Key ka data string format main aye ga request body sy 
+@app.post("/product")
+async def create_product(product: Product, seller : Seller, secret_key : Annotated[str, Body()] 
+  ):
   
-#   return {"product": product, "seller" : seller, "secret_key": secret_key}
+  return {"product": product, "seller" : seller, "secret_key": secret_key}
 
 
 
