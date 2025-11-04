@@ -644,13 +644,13 @@ PRODUCTS = [
 
 
 ## Numeric Validation must be non-zero or non-negative
-@app.get("/products/{id}")
-async def get_product(id: Annotated[int | None, Path(gt=0)]):
-  for product in PRODUCTS:
-    if product["product_id"] == id:
-      return product
-  # return {"error":"Product not found"}
-  raise HTTPException(status_code=422, detail="Product ID not found")
+# @app.get("/products/{id}")
+# async def get_product(id: Annotated[int | None, Path(gt=0)]):
+#   for product in PRODUCTS:
+#     if product["product_id"] == id:
+#       return product
+#   # return {"error":"Product not found"}
+#   raise HTTPException(status_code=422, detail="Product ID not found")
 
 
 # Add Metadata with Path
@@ -669,19 +669,19 @@ async def get_product(id: Annotated[int | None, Path(gt=0)]):
 
 
 
-# @app.get("/products/{product_id}")
-# async def get_product(product_id: int, review: bool = False, rating: int = None):
-#     """
-#     - product_id -> Path parameter
-#     - review, rating -> Query parameters
-#     Example:
-#       /products/10?review=true&rating=5
-#     """
-#     return {
-#         "product_id": product_id,
-#         "show_review": review,
-#         "rating_filter": rating
-#     }
+@app.get("/products/{product_id}")
+async def get_product(product_id: int, review: bool = False, rating: float = None):
+    """
+    - product_id -> Path parameter
+    - review, rating -> Query parameters
+    Example:
+      /products/10?review=true&rating=5
+    """
+    return {
+        "product_id": product_id,
+        "show_review": review,
+        "rating_filter": rating
+    }
 
 
 #  Combining Path and Query Parameters 
