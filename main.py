@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, Query, HTTPException, Path
+from fastapi import FastAPI, status, Query, HTTPException, Path, Header
 from typing import List, Optional, Annotated
 from enum import Enum
 from pydantic import BaseModel, AfterValidator
@@ -380,57 +380,57 @@ PRODUCTS = [
 # # Initialize app
 # app = FastAPI(title="User CRUD API")
 
-# Pydantic model for user data
-class User(BaseModel):
-    id: int | None = None
-    name: str
-    email: str
-    age: Optional[int] = None
+# # Pydantic model for user data
+# class User(BaseModel):
+#     id: int | None = None
+#     name: str
+#     email: str
+#     age: Optional[int] = None
 
-# Mock database (in-memory list)
-users_db: List[User] = []
+# # Mock database (in-memory list)
+# users_db: List[User] = []
 
-# CREATE user
-@app.post("/users", response_model=User)
-async def create_user(user: User):
-    # Check if email already exists
-    for u in users_db:
-        if u.email == user.email:
-            raise HTTPException(status_code=400, detail="Email already exists")
+# # CREATE user
+# @app.post("/users", response_model=User)
+# async def create_user(user: User):
+#     # Check if email already exists
+#     for u in users_db:
+#         if u.email == user.email:
+#             raise HTTPException(status_code=400, detail="Email already exists")
 
-    users_db.append(user)
-    return user
+#     users_db.append(user)
+#     return user
 
-# READ all users
-@app.get("/users", response_model=List[User])
-async def get_users():
-    return users_db
+# # READ all users
+# @app.get("/users", response_model=List[User])
+# async def get_users():
+#     return users_db
 
-# READ single user by ID
-@app.get("/users/{user_id}", response_model=User)
-async def get_user(user_id: int):
-    for user in users_db:
-        if user.id == user_id:
-            return user
-    raise HTTPException(status_code=404, detail="User not found")
+# # READ single user by ID
+# @app.get("/users/{user_id}", response_model=User)
+# async def get_user(user_id: int):
+#     for user in users_db:
+#         if user.id == user_id:
+#             return user
+#     raise HTTPException(status_code=404, detail="User not found")
 
-# UPDATE user
-@app.put("/users/{user_id}", response_model=User)
-async def update_user(user_id: int, updated_user: User):
-    for index, user in enumerate(users_db):
-        if user.id == user_id:
-            users_db[index] = updated_user
-            return updated_user
-    raise HTTPException(status_code=404, detail="User not found")
+# # UPDATE user
+# @app.put("/users/{user_id}", response_model=User)
+# async def update_user(user_id: int, updated_user: User):
+#     for index, user in enumerate(users_db):
+#         if user.id == user_id:
+#             users_db[index] = updated_user
+#             return updated_user
+#     raise HTTPException(status_code=404, detail="User not found")
 
-# DELETE user
-@app.delete("/users/{user_id}")
-async def delete_user(user_id: int):
-    for index, user in enumerate(users_db):
-        if user.id == user_id:
-            users_db.pop(index)
-            return {"message": "User deleted successfully"}
-    raise HTTPException(status_code=404, detail="User not found")
+# # DELETE user
+# @app.delete("/users/{user_id}")
+# async def delete_user(user_id: int):
+#     for index, user in enumerate(users_db):
+#         if user.id == user_id:
+#             users_db.pop(index)
+#             return {"message": "User deleted successfully"}
+#     raise HTTPException(status_code=404, detail="User not found")
 
 
 
@@ -483,15 +483,21 @@ PRODUCTS = [
 ]
 
 # @app.get("/products")
+
 # async def products(search:str | None = None):
+#   """ aik optional query parameter hai. Agar user ?search=... send kare to search us value ko rakhay ga, warna None hoga. """
 #   if search:
-#     serach_lower = search.lower()
+#     # search query ko small letter main convert kry ga
+#     search_lower = search.lower()
+#     # empty filtered_product list 
 #     filtered_product = []
 #     for product in PRODUCTS:
-#       if serach_lower in product["product_name"].lower():
+#       if search_lower in product["product_name"].lower():
+#         # jo product filted ky bad es main add hon ge
 #         filtered_product.append(product)
-       
+#     # Agr filtered product ha to usko dy ga 
 #     return filtered_product
+#   # wrna all products de ga
 #   return PRODUCTS    
 
 
@@ -502,37 +508,34 @@ PRODUCTS = [
 
 # # Validation without Annotated
 # @app.get("/products")
-# async def products(search:str | None = Query(default=None, max_length=10)):
+# async def products(search:str | None = Query(default=None, max_length=5, description="Search keyword for filtering products")):
 #   if search:
-#     serach_lower = search.lower()
+#     search_lower = search.lower()
 #     filtered_product = []
 #     for product in PRODUCTS:
-#       if serach_lower in product["product_name"].lower():
+#       if search_lower in product["product_name"].lower():
 #         filtered_product.append(product)
        
 #     return filtered_product
 #   return PRODUCTS    
+
 
 
 # Annotated method import krain ge typing module sy
 # Validation with Annotated
 
-# @app.get("/products")
-# async def products(search: 
-#   Annotated[
-#     str | None, 
-#     Query(max_length=10)
-#     ] = None ):
+@app.get("/products")
+async def products(search: Annotated[str | None, Query(max_length=10) ] = None):
   
-#   if search:
-#     serach_lower = search.lower()
-#     filtered_product = []
-#     for product in PRODUCTS:
-#       if serach_lower in product["product_name"].lower():
-#         filtered_product.append(product)
+  if search:
+    serach_lower = search.lower()
+    filtered_product = []
+    for product in PRODUCTS:
+      if serach_lower in product["product_name"].lower():
+        filtered_product.append(product)
        
-#     return filtered_product
-#   return PRODUCTS    
+    return filtered_product
+  return PRODUCTS    
 
 
 # Why use Annotated ?
