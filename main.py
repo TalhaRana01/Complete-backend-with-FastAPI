@@ -296,12 +296,25 @@ PRODUCTS = [
 
 # @app.get("/product")
 # async def product(q:str, limit: int, en:str):
-#   return {"status" : "OK", "lan" : q, "limit": limit, "lan" : en}
+#   return {"status" : "OK", "query" : q, "limit": limit, "language" : en}
+
 
 
 # @app.get("/course")
-# async def course(course: str, type: bool):
-#   return {"course" : course, "type": True}
+# async def course(course: str, type: bool = True):
+#   return {"course" : course, "type": type}
+
+# student asked qeury : skill , name, age, email, seats
+
+# skill required
+#  name required
+# age required
+#  email optional
+# seat  default value 10
+@app.get("/student")
+async def student_query(skill:str, name:str, age:int, email: str | None = None , seats: int = 20):
+  return {"skill": skill, "name": name, "age": age, "email": email, "seats": seats}
+
 
 ### ------------------------------------------------------------------------------------------------------
 ## Default Query Parameters
