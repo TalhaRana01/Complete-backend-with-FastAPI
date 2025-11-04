@@ -64,9 +64,9 @@ class Product(BaseModel):
 
 ## without Pydantic 
 # create a product
-@app.post("/products")
-async def create_product(new_product : dict):
-  return new_product 
+# @app.post("/products")
+# async def create_product(new_product : dict):
+#   return new_product 
 
 # with Pydantic  validation data
 # create a product
@@ -76,14 +76,14 @@ async def create_product(new_product : dict):
 
 
 # Accessing Product attribute in function
-# @app.post("/products")
-# async def create_product(new_product : Product):
-#   """Es sy hum pydantic class model main to attribute ya variables hain unko access kr skty hain"""
-#   print(new_product.id)
-#   print(new_product.name)
-#   print(new_product.price)
-#   print(new_product.stock)
-#   return new_product 
+@app.post("/products")
+async def create_product(new_product : Product):
+  """Es sy hum pydantic class model main to attribute ya variables hain unko access kr skty hain"""
+  print(new_product.id)
+  print(new_product.name)
+  print(new_product.price)
+  print(new_product.stock)
+  return new_product 
   
   
   # Add new calculated Attribute
