@@ -561,17 +561,17 @@ async def products(search: Annotated[str | None, Query(max_length=10) ] = None):
 
 #  Multiple Search Terms ( List)
 
-# @app.get("/products")
-# async def get_products(search : Annotated[list[str] | None, Query()] = None):
+@app.get("/products")
+async def get_products(search : Annotated[list[str] | None, Query()] = None):
   
-#   if search:
-#     filtered_product = []
-#     for product in PRODUCTS:
-#       for s in search:
-#         if s.lower() in product["product_name"].lower():
-#           filtered_product.append(product)
-#     return filtered_product
-#   return PRODUCTS
+  if search:
+    filtered_product = []
+    for product in PRODUCTS:
+      for s in search:
+        if s.lower() in product["product_name"].lower():
+          filtered_product.append(product)
+    return filtered_product
+  return PRODUCTS
 
 
 
