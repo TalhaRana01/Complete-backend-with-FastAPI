@@ -205,12 +205,12 @@ async def all_products():
 
 
 # # Get Single Product
-@app.get("/products/{product_id}", status_code=status.HTTP_200_OK)
-async def get_single_product(product_id : int):
-  for product in PRODUCTS:
-    if product['product_id'] == product_id:
-      return {"product": product}
-  raise HTTPException(status_code=404, detail="product not found")
+# @app.get("/products/{product_id}", status_code=status.HTTP_200_OK)
+# async def get_single_product(product_id : int):
+#   for product in PRODUCTS:
+#     if product['product_id'] == product_id:
+#       return {"product": product}
+#   raise HTTPException(status_code=404, detail="product not found")
 
 # # Create product  
 @app.post("/products/", status_code=status.HTTP_201_CREATED)
@@ -219,7 +219,7 @@ async def create_product(new_product: dict):
   return {"response" : "Product created ", "new_product": new_product}
 
 # Update product
-@app.put("/products/{product_id}")
+@app.put("/products/{product_id}", status_code=status.HTTP_200_OK)
 async def update_product(product_id, update_product: dict):
   for index, product in enumerate(PRODUCTS):
     if product['product_id'] == product_id:
