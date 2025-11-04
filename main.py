@@ -578,31 +578,31 @@ PRODUCTS = [
 
 # Alias parameters Query(alias="q")
 
-@app.get("/products")
-async def get_products(search: Annotated[list[str] | None, Query(alias="q" ,description="Search your query here.")] = None):
-  
-  print("Query received:", search)
-  if search:
-    filtered_product = []
-    for product in PRODUCTS:
-        for s in search:
-           if s.lower() in product["product_name"].lower():
-              filtered_product.append(product)
-    return filtered_product
-  return PRODUCTS
-
-# Adding Metadata
 # @app.get("/products")
-# async def get_products(search: Annotated[list[str] | None, Query(alias="q", title="Search Products", description="Search by product title",deprecated=True )] = None):
+# async def get_products(search: Annotated[list[str] | None, Query(alias="q" ,description="Search your query here.")] = None):
   
+#   print("Query received:", search)
 #   if search:
 #     filtered_product = []
 #     for product in PRODUCTS:
-#       for s in search:
-#         if s.lower() in product["product_name"].lower():
-#           filtered_product.append(product)
+#         for s in search:
+#            if s.lower() in product["product_name"].lower():
+#               filtered_product.append(product)
 #     return filtered_product
 #   return PRODUCTS
+
+# Adding Metadata
+@app.get("/products")
+async def get_products(search: Annotated[list[str] | None, Query(alias="q", title="Search Products", description="Search by product title",deprecated=True )] = None):
+  
+  if search:
+    filtered_product = []
+    for product in PRODUCTS:
+      for s in search:
+        if s.lower() in product["product_name"].lower():
+          filtered_product.append(product)
+    return filtered_product
+  return PRODUCTS
 
 
 # Custom Validation 
