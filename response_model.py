@@ -1,20 +1,20 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List, Any
+from typing import List, Any, Optional
 
 
 app = FastAPI(title="Talha Rana AI Engineer")
 
 
-class Product(BaseModel):
-  id : int
-  name : str
-  price : float
-  stock : int | None = None
+# class Product(BaseModel):
+#   id : int
+#   name : str
+#   price : float
+#   stock : int | None = None
   
-class ProductOut(BaseModel):
-  name : str
-  price : float
+# class ProductOut(BaseModel):
+#   name : str
+#   price : float
 
 # # without response_model parameters 
 # @app.get("/product")
@@ -60,8 +60,36 @@ class UserIn(BaseUser):
 #   return user 
 
 ## response_model None foe disable
-@app.post("/users", response_model= None)
-async def create_user(user : UserIn) -> Any:
-  return user 
-   
+# @app.post("/users", response_model= None)
+# async def create_user(user : UserIn) -> Any:
+  # return user 
+
+## -------------------------------------------------
+#  Include and Exlude unset dafauly vaues
+## -------------------------------------------------
+
+
+
+product_db = {
+  "1" : { "id": 1, "name": "mobile", "price": 20000, "stock": 20, "is_active": True},
+  "2" : { "id": 2, "name": "laptop", "price": 50000, "stock": 20, "is_active": False},
   
+}
+
+print(type(product_db))
+
+class Product(BaseModel):
+  id : int
+  name : str
+  price : float 
+  description : Optional[str] = None
+  tax: float = 15.0  # Default tax rate
+  
+# @app.get("/products/{product_id}", response_model=Product, response_model_exclude_unset=True)
+# async def get_product(product_id: str):
+#   return product_db.get(product_id, {})
+
+## Including Specific Fields
+@app.get("/products/{product_id}", response_model=Product, response_model_include={"name", "price"})
+async def get_product(product_id: str):
+  return product_db.get(product_id, {})
