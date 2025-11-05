@@ -5,11 +5,41 @@ from pydantic import BaseModel
 
 app = FastAPI(title="Talha Rana AI Engineer")
 
+
+# # without return type
+# @app.get("/product")
+# async def get_product():
+#   # return "hello world"    ## ✅ return simple string
+#   # return {"status": "OK"} ## ✅  return JSON key value
+#   return [
+#     {"message" : "Get all product"},
+#     {"status": "OK"}
+#     ]                       ## ✅ return JSON in List
+
+## Return type annotation 
+
+class Product(BaseModel):
+  id: int
+  name : str
+  price : float
+  stock : int | None = None
+  
+
 @app.get("/product")
-async def get_product():
-  # return "hello world"  ## return simple string
-  # return {"status": "OK"} ## return JSON key value
+async def get_product() -> Product:
+  # return "hello world" ## ❌ can't return simple string 
+  # return { "id": 1, "name": "laptop", "price": 20000, "stock": 25}     ## ✅ Only return Product defined basemodel
   return [
-    {"message" : "Get all product"},
-    {"status": "OK"}
-    ]   ## return JSON in List
+    { "id": 1, "name": "laptop", "price": 20000, "stock": 25},
+    { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
+    { "id": 3, "name": "laptop", "price": 20000, "stock": 50}
+  ]
+# @app.get("/product")
+# async def get_product() -> Product:
+#   # return "hello world" ## ❌ can't return simple string 
+#   # return { "id": 1, "name": "laptop", "price": 20000, "stock": 25}     ## ✅ Only return Product defined basemodel
+#   return [
+#     { "id": 1, "name": "laptop", "price": 20000, "stock": 25},
+#     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
+#     { "id": 3, "name": "laptop", "price": 20000, "stock": 50}
+#   ]
