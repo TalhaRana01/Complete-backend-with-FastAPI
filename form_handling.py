@@ -24,6 +24,6 @@ async def get_form():
 
 """
 #  Login route with username and password validation
-@app.post("/login/")
-async def login(username : Annotated[str, Form(min_length=3)], password : Annotated[str, Form(min_length=3, max_length=20)]):
-  return {"username": username, "password": password}
+# @app.post("/login/")
+# async def login(username : Annotated[str, Form(min_length=3)], password : Annotated[str, Form(min_length=3, max_length=20)]):
+#   return {"username": username, "password": password}
