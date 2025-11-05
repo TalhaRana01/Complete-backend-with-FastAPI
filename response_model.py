@@ -55,7 +55,12 @@ class UserIn(BaseUser):
 #   return user 
 
 ## with return type annotation and response_model 
-@app.post("/users", response_model= BaseUser)
+# @app.post("/users", response_model= BaseUser)
+# async def create_user(user : UserIn) -> Any:
+#   return user 
+
+## response_model None foe disable
+@app.post("/users", response_model= None)
 async def create_user(user : UserIn) -> Any:
   return user 
    
