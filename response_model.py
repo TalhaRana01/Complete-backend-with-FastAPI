@@ -90,6 +90,11 @@ class Product(BaseModel):
 #   return product_db.get(product_id, {})
 
 ## Including Specific Fields
-@app.get("/products/{product_id}", response_model=Product, response_model_include={"name", "price"})
+# @app.get("/products/{product_id}", response_model=Product, response_model_include={"name", "price"})
+# async def get_product(product_id: str):
+#   return product_db.get(product_id, {})
+
+## Excluding Specific Fields with response_model_exclude
+@app.get("/products/{product_id}", response_model=Product, response_model_exclude={"name", "price"})
 async def get_product(product_id: str):
   return product_db.get(product_id, {})
