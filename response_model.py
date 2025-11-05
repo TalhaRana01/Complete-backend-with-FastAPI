@@ -35,4 +35,18 @@ class ProductOut(BaseModel):
 #     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
 #     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
 #   ]
+
+class BaseUser(BaseModel):
+  username : str
+  full_name : str
+  
+class UserIn(BaseUser):
+  password : str
+
+
+# # with return type
+@app.post("/users")
+async def create_user(user : UserIn) -> BaseUser:
+  return user 
+   
   
