@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List
+from typing import List, Any
 
 
 app = FastAPI(title="Talha Rana AI Engineer")
@@ -44,9 +44,19 @@ class UserIn(BaseUser):
   password : str
 
 
-# # with return type
-@app.post("/users")
-async def create_user(user : UserIn) -> BaseUser:
+# # with return type annotation
+# @app.post("/users")
+# async def create_user(user : UserIn) -> BaseUser:
+#   return user 
+
+## with response_model 
+# @app.post("/users", response_model= BaseUser)
+# async def create_user(user : UserIn) -> BaseUser:
+#   return user 
+
+## with return type annotation and response_model 
+@app.post("/users", response_model= BaseUser)
+async def create_user(user : UserIn) -> Any:
   return user 
    
   
