@@ -22,11 +22,11 @@ app = FastAPI(title="Talha Rana AI Engineer")
 
 ## Return type annotation 
 
-class Product(BaseModel):
-  id: int
-  name : str
-  price : float
-  stock : int | None = None
+# class Product(BaseModel):
+#   id: int
+#   name : str
+#   price : float
+#   stock : int | None = None
   
 ## return only JSON Value
 # @app.get("/product")
@@ -45,17 +45,50 @@ class Product(BaseModel):
 #     { "id": 1, "name": "laptop", "price": 20000, "stock": 25},
 #     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
 #     { "id": 3, "name": "laptop", "stock": 50, "price": 20000,}
-#   ]
+#   ]                                                                       ## ✅ Only return list of product defined basemodel
 
 
 ## without return type annotation 
-@app.post("/product")
-async def create_product(product: Product):
-  # return product   ## ✅ return product basemodel in response body
-  # return "This is a product" ## ✅ return simple String in response body
-  return [
-    { "id": 1, "name": "laptop", "price": 20000, "stock": 25},
-    { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
-    { "id": 3, "name": "laptop", "stock": 50, "price": 20000,}
+# @app.post("/product")
+# async def create_product(product: Product):
+#   # return product   ## ✅ return product basemodel in response body
+#   # return "This is a product" ## ✅ return simple String in response body
+#   return [
+#     { "id": 1, "name": "laptop", "price": 20000, "stock": 25},
+#     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
+#     { "id": 3, "name": "laptop", "stock": 50, "price": 20000,}
     
-  ]
+  # ]
+  
+## with return type annotation  
+# @app.post("/product")
+# async def create_product(product: Product) -> Product:
+#   # return product   ## ✅ return product basemodel in response body
+#   # return "This is a product" ## ✅ return simple String in response body
+#   return [
+#     { "id": 1, "name": "laptop", "price": 20000, "stock": 25},
+#     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
+#     { "id": 3, "name": "laptop", "stock": 50, "price": 20000,}
+    
+#   ]
+
+
+class Product(BaseModel):
+  id: int
+  name : str
+  price : float
+  stock : int | None = None
+  
+class ProductOut(BaseModel):
+  name : str
+  price : float
+  
+  
+# Restricted data 
+# function input is Product id, name, price and stock
+# function return or output name, and price
+@app.post("/product")
+async def get_product(product: Product) -> ProductOut:
+  return product
+  
+  
