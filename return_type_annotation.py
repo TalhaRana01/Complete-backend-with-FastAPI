@@ -7,4 +7,9 @@ app = FastAPI(title="Talha Rana AI Engineer")
 
 @app.get("/product")
 async def get_product():
-  return "hello world"
+  # return "hello world"  ## return simple string
+  # return {"status": "OK"} ## return JSON key value
+  return [
+    {"message" : "Get all product"},
+    {"status": "OK"}
+    ]   ## return JSON in List
