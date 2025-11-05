@@ -6,7 +6,7 @@ from pydantic import BaseModel
 app = FastAPI(title="Talha Rana AI Engineer")
 
 ##---------------------------------------------------------------------------------------
-# Return type Annotation sy hum return data ko validate kr skty hain restrict kr sty hain
+# Return type Annotation sy hum kisi bhi function ka return data ko validate kr skty hain restrict kr sty hain
 ##---------------------------------------------------------------------------------------
 
 
