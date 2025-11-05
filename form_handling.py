@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 from typing import Annotated
+from pydantic import BaseModel, Field
 
 
 app = FastAPI(title="Form Handling")
@@ -27,3 +28,15 @@ async def get_form():
 # @app.post("/login/")
 # async def login(username : Annotated[str, Form(min_length=3)], password : Annotated[str, Form(min_length=3, max_length=20)]):
 #   return {"username": username, "password": password}
+
+
+# with pydantic model for form 
+
+class Login(BaseModel):
+  username : str = Field(min_length=3)
+  password : str = Field(min_length=8, max_length=25)
+  
+  
+@app.post("/login/")
+async def login(data : Annotated[Login, Form()]):
+  return data
