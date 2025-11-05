@@ -17,11 +17,22 @@ class ProductOut(BaseModel):
   price : float
 
 # # without response_model parameters 
-@app.get("/product")
-async def get_product() :
-  # return { "id": 2, "name": "mobile", "price": 20000, "stock": 20}
+# @app.get("/product")
+# async def get_product() :
+#   # return { "id": 2, "name": "mobile", "price": 20000, "stock": 20}
+#   return "hello world"
 
 # with response_model parameters
-@app.get("/product", response_model=Product)
-async def get_product() :
-  return { "id": 2, "name": "mobile", "price": 20000, "stock": 20}
+# @app.get("/product", response_model=Product)
+# async def get_product() :
+#   # return { "id": 2, "name": "mobile", "price": 20000, "stock": 20}
+#   return "hello world" ## ❌ doesn't return any data
+
+# @app.get("/product", response_model=List[Product])
+# async def get_product() :
+#   return [
+#     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
+#     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
+#     { "id": 2, "name": "mobile", "price": 20000, "stock": 20},
+#   ]
+  
