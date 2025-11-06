@@ -89,25 +89,25 @@ app = FastAPI(title="Talha Rana AI Engineer")
 #   # ]
 
 
-class Product(BaseModel):
-  name : str
-  price : float
+# class Product(BaseModel):
+#   name : str
+#   price : float
   
   
   
-class ProductOut(Product):
-  id : int
-  name : str
-  price : float
-  stock : int | None = None
+# class ProductOut(Product):
+#   id : int
+#   name : str
+#   price : float
+#   stock : int | None = None
   
   
-# Restricted data 
-# function input is Product id, name, price and stock
-# function return or output name, and price
-@app.post("/product")
-async def get_product(product: ProductOut) -> Product:
-  return product
+# # Restricted data 
+# # function input is Product id, name, price and stock
+# # function return or output name, and price
+# @app.post("/product")
+# async def get_product(product: ProductOut) -> Product:
+#   return product
 
 # User Password restricted to return
 # class BaseUser(BaseModel):
