@@ -35,6 +35,7 @@ async def get_form():
 class Login(BaseModel):
   username : str = Field(min_length=3)
   password : str = Field(min_length=8, max_length=25)
+  model_config = {"extra": "forbid"}
   
   
 @app.post("/login/")
