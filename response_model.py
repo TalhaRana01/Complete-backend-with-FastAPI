@@ -23,27 +23,28 @@ class ProductOut(BaseModel):
 #   # return { "id": 2, "name": "mobile", "price": 20000, "stock": 20}  ✅ return
 #   # return "hello world"  ✅ return
 
-@app.get("/user", response_class=HTMLResponse)
-def get_user():
-    return """
-    <html>
-      <body>
-        <h2>Login Form</h2>
-        <form action="/login/" method= "post">
-            <label for="username">username</label><br>
-            <input type="text" id="username" name="username"><br>
-            <label for="password">password</label><br>
-            <input type="password" id="password" name="password"><br>
-            <input type="submit"  value="submit">
-        </form>
-      </body>
-    </html>"""
+# @app.get("/user", response_class=HTMLResponse)
+# def get_user():
+#     return """
+#     <html>
+#       <body>
+#         <h2>Login Form</h2>
+#         <form action="/login/" method= "post">
+#             <label for="username">username</label><br>
+#             <input type="text" id="username" name="username"><br>
+#             <label for="password">password</label><br>
+#             <input type="password" id="password" name="password"><br>
+#             <input type="submit"  value="submit">
+#         </form>
+#       </body>
+#     </html>"""
 
-# with response_model parameters
+## with response_model parameters
 # @app.get("/product", response_model=Product)
 # async def get_product() :
 #   # return { "id": 2, "name": "mobile", "price": 20000, "stock": 20}
-#   return "hello world" ## ❌ doesn't return any data
+#   # return "hello world" ## ❌ doesn't return any data
+
 
 # @app.get("/product", response_model=List[Product])
 # async def get_product() :
@@ -62,9 +63,9 @@ class UserIn(BaseUser):
 
 
 # # with return type annotation
-# @app.post("/users")
-# async def create_user(user : UserIn) -> BaseUser:
-#   return user 
+@app.post("/users")
+async def create_user(user : UserIn) -> BaseUser:
+  return user 
 
 ## with response_model 
 # @app.post("/users", response_model= BaseUser)
