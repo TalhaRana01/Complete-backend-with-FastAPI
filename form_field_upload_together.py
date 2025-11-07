@@ -33,11 +33,21 @@ async def get_form():
 """
 
 @app.post("/user--with-file/")
-async def user_profile_upload(file: Annotated[bytes | None, File() ] = None):
+async def user_profile_upload(
+  username: Annotated[str, Form() ],
+  file: Annotated[UploadFile | None, File()] = None):
   
-  if not file:
-    return {"message": "Not file sent"}
-  return {"file size" : len(file)}
+  response = {"username": username}
+  if file:
+    save_path = f"uploads/{file.filename}"
+    os.makedirs("uploads", exist_ok=True)
+    with open(save_path, "wb") as buffer:
+      shutil.copyfileobj(file.file, buffer)
+    response["filename"] = file.filename
+  return response
+      
+  
+  
 
 
 # # save file in local system 
