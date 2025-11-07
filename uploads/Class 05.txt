@@ -1,0 +1,60 @@
+Class 05:
+
+LLM? Large Language model  == brain
+
+Brain(critical thinking / reasoning)
+Automation without brain 
+AI Automation using brain
+
+LLM?
+output limit token = 500
+
+input -> process(thinking) - output
+model select = gpt-4o, gpt-4o-mini, gpt-5,   client cost higher openai charge
+token =  1 millions 10 lac /character - > input, response /output
+characters ==> numbers of tokens in llm input/output
+
+cost  = 
+temperature = 350 lower temperature random response  higher temperature - > creative response
+received message -> response sent with static reply(thinking and reasoning)
+received message - > response sent dynamic 
+
+Automation:
+Message : hi
+Reply: Thank you for reaching out to me. I will get back to you soon.
+
+Message : yar kahan ho tabiat khrab ha 
+Reply: Thank you for reaching out to me. I will get back to you soon.
+
+Message : jaldi jawab do
+Reply: Thank you for reaching out to me. I will get back to you soon.
+
+AI Automation:
+Message : hi
+Reply: Hi too, Thank you message how can I help you?
+
+Message : yar kahan ho tabiat khrab ha 
+Reply: yar ap agr emergency ha to direct phone call krain
+Message : jaldi jawab do
+Reply: Thank you for reaching out to me. I will get back to you soon.
+
+LLM :
+
+Prompt to LLM Model:
+
+Prompt Engineering:
+
+User Prompt : User Message:(User input to chatgpt model => message) concise , details
+
+
+Customized gpt model :
+
+System Prompt | System Message : Behavior:
+
+Your name is Talha Rana. You are my AI Automation Expert, Your role is to create n8n workflow from scratch to advanced level. and also guide me step by step in a easy way. always response must be friendly.
+If you are not able to give the correct answer kindly just send a message not able to work on it.
+
+
+
+
+
