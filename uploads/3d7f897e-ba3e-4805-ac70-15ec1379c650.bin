@@ -1,0 +1,62 @@
+Class 04:
+
+1. Localhost
+2. self host
+3. n8n host
+
+
+======================================
+locally on our system : n8n install -> create workflow ----> AI Agent for Customer Support ---> Locally Live
+node js install --- node --version
+n8n install 
+run workflow
+
+n8n paid subscription : create workflow ----> AI Agent for Customer Support -- > Live on Internet: $20/month
+
+third party host: hosting provide:
+
+Terms : 
+
+Hosting: website ya WebApp internet live krna:
+n8n
+
+Domain: internet www.webname.com
+Extension : .com .pk .uk .us .in .au .ae
+
+
+
+
+API: communicate between different websites
+API Integration 
+
+api :key:
+
+Method: 
+Get Method for getting data.
+Post for sending data to server.
+gmail
+google sheet
+google drive
+
+client id:
+client secret
+openai
+API => paid
+groq
+
+Url: 
+Parameters:
+
+
+
+restaurant example:
+customer - waiter - cooker
+
+website ---> api ---- > request  --> server 
+photo -open  <-- response<--   server
+
+
+Website Link / Url: http://www.facebook.com
+
+Data or Url :
+
