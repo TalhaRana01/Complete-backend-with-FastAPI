@@ -16,8 +16,16 @@ items = {
 #   return items
 
 ## Get single item
+# @app.get("/items/{item_id}")
+# async def get_item(item_id: str):
+#   if item_id not in items:
+#     raise HTTPException(status_code=404, detail="Item not found")
+#   return items[item_id]
+
+
+## Adding Custom Header
 @app.get("/items/{item_id}")
 async def get_item(item_id: str):
   if item_id not in items:
-    raise HTTPException(status_code=404, detail="Item not found")
+    raise HTTPException(status_code=404, detail="Item not found", headers={"x-error-type": "itemmissing"})
   return items[item_id]
