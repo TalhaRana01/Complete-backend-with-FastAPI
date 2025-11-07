@@ -6,7 +6,10 @@ from pydantic import BaseModel, Field
 
 app = FastAPI(title="Form Handling")
 
+## Import Form from FastAPi
+## import HTMLResponse from fastapi.responses
 ## Simple HTML form for testing
+## simple render HTML form with response class
 @app.get("/", response_class=HTMLResponse)
 async def get_form():
   return """
@@ -24,13 +27,13 @@ async def get_form():
     </html>
 
 """
-#  Login route with username and password validation
+#  Login route with username and password validation wih Annotated
 # @app.post("/login/")
 # async def login(username : Annotated[str, Form(min_length=3)], password : Annotated[str, Form(min_length=3, max_length=20)]):
 #   return {"username": username, "password": password}
 
 
-# with pydantic model for form 
+# with pydantic model for form validation with Field
 
 class Login(BaseModel):
   username : str = Field(min_length=3)
@@ -41,3 +44,4 @@ class Login(BaseModel):
 @app.post("/login/")
 async def login(data : Annotated[Login, Form()]):
   return data
+  
